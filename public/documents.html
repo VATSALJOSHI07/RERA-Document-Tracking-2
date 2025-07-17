@@ -4081,28 +4081,33 @@
                 const formData = new FormData(event.target);
                 const clientData = {};
                 for (let [key, value] of formData.entries()) {
-                    if (value.trim() === '') {
-                        clientData[key] = null;
-                    } else {
-                        clientData[key] = value.trim();
-                    }
+                    clientData[key] = value.trim() === '' ? null : value.trim();
                 }
-                const response = await makeAuthenticatedRequest('/api/clients', {
+                console.log('Sending client data:', clientData);
+                const response = await fetch('/api/clients', {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
                     body: JSON.stringify(clientData)
                 });
+                console.log('Response status:', response.status);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    const err = await response.json();
+                    console.error('Error response:', err);
+                    throw new Error(err.message || 'Request failed');
                 }
                 const data = await response.json();
+                console.log('Success:', data);
                 alert('Client created successfully!');
                 event.target.reset();
                 if (typeof loadClientsHome === 'function') {
                     loadClientsHome();
                 }
             } catch (error) {
-                console.error('Error creating client:', error);
-                alert('Error creating client. Please try again.');
+                console.error('Request error:', error);
+                alert(`Error: ${error.message}`);
             }
         }
 
