@@ -2416,7 +2416,7 @@
         function loadClientsHome() {
             const clientsList = document.getElementById('clientListHome');
             clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients')
+            fetch('/api/clients', { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2493,7 +2493,7 @@
                 return;
             }
             clientsList.innerHTML = '<div class="loading">Searching...</div>';
-            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`)
+            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2566,7 +2566,7 @@
 
         // Edit client from Home section
         function editClientHome(clientId) {
-            fetch(`/api/clients/${clientId}`)
+            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2610,7 +2610,7 @@
             const panel = document.getElementById('clientDetailsPanelHome');
             panel.style.display = 'block';
             panel.innerHTML = '<div class="loading">Loading client details...</div>';
-            fetch(`/api/clients/${clientId}`)
+            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2766,7 +2766,7 @@
             const content = document.getElementById('clientDetailsModalContent');
             modal.style.display = 'block';
             content.innerHTML = '<div class="loading">Loading client details...</div>';
-            fetch(`/api/clients/${clientId}`)
+            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2878,7 +2878,7 @@
         function loadClientsForPayments() {
             const clientsList = document.getElementById('paymentsClientList');
             clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients')
+            fetch('/api/clients', { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -2969,7 +2969,7 @@
             // Show client name
             let html = `<h3>${client.name}</h3>`;
             // Fetch and show payments
-            fetch(`/api/payments/${client._id}`)
+            fetch(`/api/payments/${client._id}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3055,7 +3055,7 @@
         function loadClientsForDocuments() {
             const clientsList = document.getElementById('documentsClientList');
             clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients')
+            fetch('/api/clients', { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3110,9 +3110,7 @@
                     e.stopPropagation();
                     fetch(`/api/export/pending-documents/${client._id}`, {
                         method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer ' + (localStorage.getItem('jwt') || '')
-                        }
+                        headers: authHeaders()
                     })
                     .then(response => {
                         if (!response.ok) throw new Error('Failed to download file');
@@ -3215,7 +3213,7 @@
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
             documentsList.innerHTML = '';
-            fetch(`/api/clients/${clientId}`)
+            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3226,7 +3224,7 @@
                 .then(clientData => {
                     if (clientData.error) throw new Error(clientData.error);
                     document.getElementById('documentsModalClientName').textContent = clientData.name;
-                    return fetch(`/api/documents/${clientId}`);
+                    return fetch(`/api/documents/${clientId}`, { headers: authHeaders() });
                 })
                 .then(response => {
                     if (response.status === 401) {
@@ -3470,7 +3468,7 @@
         // Add these functions to the <script> section:
         function deletePayment(paymentId, clientId) {
             // Only allow delete if payment is fully received
-            fetch(`/api/payments/${paymentId}`)
+            fetch(`/api/payments/${paymentId}`, { headers: authHeaders() })
                 .then(response => response.json())
                 .then(payment => {
                     if ((payment.paidAmount || 0) < payment.amount) {
@@ -3489,7 +3487,7 @@
                         }
                         alert('Payment deleted!');
                         // Refresh the modal
-                        fetch(`/api/clients/${clientId}`)
+                        fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                             .then(response => response.json())
                             .then(client => showPaymentDetailsModal(client));
                     })
@@ -3500,7 +3498,7 @@
         }
 
         function editPayment(paymentId, clientId) {
-            fetch(`/api/payments/${paymentId}`)
+            fetch(`/api/payments/${paymentId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3535,7 +3533,7 @@
                             return;
                         }
                         alert('Payment updated!');
-                        fetch(`/api/clients/${clientId}`)
+                        fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
                             .then(response => {
                                 if (response.status === 401) {
                                     showAuthModal();
@@ -3553,7 +3551,7 @@
 
         // After successful authentication (when isAuthenticated() is true), fetch the current user's info from the backend and update the sidebar.
         if (isAuthenticated()) {
-            fetch('/api/user')
+            fetch('/api/user', { headers: authHeaders() })
                 .then(res => res.json())
                 .then(user => {
                     if (user && user.name) {
@@ -3576,7 +3574,7 @@
         function loadClientsForTasks() {
             const clientsList = document.getElementById('taskClientList');
             clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients')
+            fetch('/api/clients', { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3712,7 +3710,7 @@
             document.getElementById('taskDetailsModal').style.display = 'block';
             const content = document.getElementById('taskDetailsModalContent');
             content.innerHTML = '<div class="loading">Loading tasks...</div>';
-            fetch(`/api/tasks/${clientId}`)
+            fetch(`/api/tasks/${clientId}`, { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3859,7 +3857,7 @@
 
         // After loadClientsHome loads all clients, fetch all payments and update the Home cards
         function updateHomeTotals() {
-            fetch('/api/payments')
+            fetch('/api/payments', { headers: authHeaders() })
                 .then(response => {
                     if (response.status === 401) {
                         showAuthModal();
@@ -3894,9 +3892,7 @@
         document.getElementById('downloadPendingDocsBtn').addEventListener('click', function() {
             fetch('/api/export/pending-documents', {
                 method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + (localStorage.getItem('jwt') || '')
-                }
+                headers: authHeaders()
             })
             .then(response => {
                 if (!response.ok) throw new Error('Failed to download file');
@@ -3936,6 +3932,86 @@
                 }
             }
         });
+
+        // Helper to get auth headers
+        function authHeaders(extra = {}) {
+          return {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + (localStorage.getItem('jwt') || ''),
+            ...extra
+          };
+        }
+
+        // Patch login and registration logic to store JWT
+        document.getElementById('authForm').onsubmit = function(e) {
+          e.preventDefault();
+          const userId = document.getElementById('authUserId').value.trim();
+          const password = document.getElementById('authPassword').value;
+          const isRegister = document.getElementById('authTitle').textContent === 'Register';
+          fetch(isRegister ? '/api/register' : '/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, password })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.token) {
+              localStorage.setItem('jwt', data.token);
+              location.reload();
+            } else if (data.message && isRegister) {
+              // Registration success, show login
+              showLogin();
+              document.getElementById('authError').textContent = 'Registration successful! Please login.';
+              document.getElementById('authError').style.display = 'block';
+            } else {
+              document.getElementById('authError').textContent = data.error || 'Login/Registration failed';
+              document.getElementById('authError').style.display = 'block';
+            }
+          })
+          .catch(() => {
+            document.getElementById('authError').textContent = 'Login/Registration failed';
+            document.getElementById('authError').style.display = 'block';
+          });
+        };
+
+        // Patch all fetches to use authHeaders for protected endpoints
+        // Example for loadClientsHome:
+        function loadClientsHome() {
+          const clientsList = document.getElementById('clientListHome');
+          clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
+          fetch('/api/clients', { headers: authHeaders() })
+            .then(response => {
+              if (response.status === 401) {
+                showAuthModal();
+                throw new Error('Unauthorized');
+              }
+              return response.json();
+            })
+            .then(data => {
+              clientsList.innerHTML = '';
+              if (!data || data.length === 0) {
+                clientsList.innerHTML = '<p style="padding:24px;">No clients found. Add a new client using the button above.</p>';
+                document.getElementById('totalClients').textContent = '0';
+                return;
+              }
+              document.getElementById('totalClients').textContent = data.length;
+              data.forEach(client => {
+                const item = document.createElement('div');
+                item.className = 'client-list-item';
+                // ... existing code ...
+              });
+            })
+            .catch((err) => {
+              console.error('Error loading clients:', err);
+              clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
+            });
+        }
+        // ... Repeat for all fetches to /api/clients, /api/payments, /api/documents, /api/tasks, etc. ...
+        // For example:
+        // fetch('/api/payments', { headers: authHeaders() })
+        // fetch(`/api/clients/${id}`, { headers: authHeaders() })
+        // fetch(`/api/documents/${clientId}`, { headers: authHeaders() })
+        // ... existing code ...
     </script>
 </body>
 </html>
