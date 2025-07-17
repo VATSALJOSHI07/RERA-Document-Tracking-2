@@ -15,7 +15,7 @@
     // Define allowedOrigins for CORS
     const allowedOrigins = [
     'https://vatsaljoshi07.github.io',
-    'https://rera-document-tracking2.onrender.com',
+    'https://rera-document-tracking-2.onrender.com',
     undefined // allow Postman, curl, etc.
     ];
 
