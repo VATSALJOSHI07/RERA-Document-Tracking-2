@@ -2202,12 +2202,8 @@
                 description: document.getElementById('paymentDescription').value,
                 dueDate: document.getElementById('paymentDueDate').value
             };
-            fetch('/api/payments', {
+            makeAuthenticatedRequest('/api/payments', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
                 body: JSON.stringify(paymentData)
             })
             .then(response => {
@@ -3942,9 +3938,8 @@
                     description: document.getElementById('paymentDescriptionModal').value,
                     dueDate: document.getElementById('paymentDueDateModal').value
                 };
-                fetch('/api/payments', {
+                makeAuthenticatedRequest('/api/payments', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('jwt') },
                     body: JSON.stringify(paymentData)
                 })
                 .then(response => {
