@@ -1,142 +1,21 @@
     // server.js
     const express = require('express');
+    const { Sequelize, DataTypes } = require('sequelize');
     const cors = require('cors');
     const jwt = require('jsonwebtoken');
     require('dotenv').config();
     const path = require('path');
     const PDFDocument = require('pdfkit');
 
-    // Add Sequelize
-    const { Sequelize, DataTypes } = require('sequelize');
-
     const app = express();
     const PORT = process.env.PORT || 5000;
-
-    // Sequelize connection
-    const sequelize = new Sequelize(process.env.DATABASE_URL, {
-        dialect: 'postgres',
-        protocol: 'postgres',
-        logging: console.log,
-        dialectOptions: {
-            ssl: process.env.NODE_ENV === 'production' ? {
-                require: true,
-                rejectUnauthorized: false
-            } : false
-        },
-        pool: {
-            max: 5,
-            min: 0,
-            acquire: 30000,
-            idle: 10000
-        }
-    });
-
-    // Sequelize Models
-    const User = sequelize.define('User', {
-      userId: { type: DataTypes.STRING, allowNull: false, unique: true },
-      passwordHash: { type: DataTypes.STRING, allowNull: false }
-    });
-
-    const Client = sequelize.define('Client', {
-      type: { type: DataTypes.ENUM('Developer', 'Agent', 'Litigation'), allowNull: false },
-      name: { type: DataTypes.STRING, allowNull: false },
-      promoterName: DataTypes.STRING,
-      location: DataTypes.STRING,
-      plotNo: DataTypes.STRING,
-      plotArea: DataTypes.STRING,
-      totalUnits: { type: DataTypes.INTEGER, allowNull: true },
-      bookedUnits: { type: DataTypes.INTEGER, allowNull: true },
-      workStatus: { type: DataTypes.ENUM('Not Started', 'In Progress', 'Completed') },
-      reraNumber: DataTypes.STRING,
-      certificateDate: DataTypes.DATE,
-      mobile: { type: DataTypes.STRING, allowNull: false },
-      officeNumber: DataTypes.STRING,
-      email: DataTypes.STRING,
-      caName: DataTypes.STRING,
-      engineerName: DataTypes.STRING,
-      architectName: DataTypes.STRING,
-      reference: DataTypes.STRING,
-      completionDate: DataTypes.DATE,
-      dateCreated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
-    });
-
-    const Document = sequelize.define('Document', {
-      documents: { type: DataTypes.JSONB, defaultValue: {} }, // { docName: 'received' | 'not-received' }
-      lastUpdated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
-    });
-
-    const Payment = sequelize.define('Payment', {
-      amount: { type: DataTypes.FLOAT, allowNull: false },
-      description: { type: DataTypes.STRING, allowNull: false },
-      dueDate: DataTypes.DATE,
-      paidAmount: { type: DataTypes.FLOAT, defaultValue: 0 },
-      transactions: { type: DataTypes.JSONB, defaultValue: [] }, // [{ amount, date, notes, timestamp }]
-      dateCreated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
-    });
-
-    const Task = sequelize.define('Task', {
-      title: DataTypes.STRING,
-      service: DataTypes.STRING,
-      allocatedMembers: DataTypes.STRING,
-      assignedMembers: DataTypes.STRING,
-      priority: DataTypes.STRING,
-      dueDate: DataTypes.STRING,
-      team: DataTypes.STRING,
-      clientSource: DataTypes.STRING,
-      status: DataTypes.STRING,
-      governmentFees: DataTypes.STRING,
-      sroFees: DataTypes.STRING,
-      billAmount: DataTypes.STRING,
-      gst: DataTypes.STRING,
-      branch: DataTypes.STRING,
-      remark: DataTypes.STRING,
-      note: DataTypes.STRING,
-      description: DataTypes.STRING,
-      dateCreated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
-    });
-
-    // Associations
-    User.hasMany(Client, { foreignKey: 'userId' });
-    Client.belongsTo(User, { foreignKey: 'userId' });
-
-    User.hasMany(Document, { foreignKey: 'userId' });
-    Document.belongsTo(User, { foreignKey: 'userId' });
-    Client.hasOne(Document, { foreignKey: 'clientId' });
-    Document.belongsTo(Client, { foreignKey: 'clientId' });
-
-    User.hasMany(Payment, { foreignKey: 'userId' });
-    Payment.belongsTo(User, { foreignKey: 'userId' });
-    Client.hasMany(Payment, { foreignKey: 'clientId' });
-    Payment.belongsTo(Client, { foreignKey: 'clientId' });
-
-    User.hasMany(Task, { foreignKey: 'userId' });
-    Task.belongsTo(User, { foreignKey: 'userId' });
-    Client.hasMany(Task, { foreignKey: 'clientId' });
-    Task.belongsTo(Client, { foreignKey: 'clientId' });
-
-    // Sync models (for dev, use migrations for prod)
-    // sequelize.sync({ alter: true }) // Ensure tables are created/updated. Comment out after first run in production.
-
-    // Robust DB connection and sync
-    sequelize.authenticate()
-        .then(() => {
-            console.log('PostgreSQL connected successfully');
-            return sequelize.sync({ alter: true });
-        })
-        .then(() => {
-            console.log('Database synchronized');
-        })
-        .catch(err => {
-            console.error('Database connection/sync error:', err);
-            process.exit(1);
-        });
 
     // Middleware
 
     // Define allowedOrigins for CORS
     const allowedOrigins = [
     'https://vatsaljoshi07.github.io',
-    'https://rera-document-tracking-2.onrender.com',
+    'https://rera-document-tracking.onrender.com',
     undefined // allow Postman, curl, etc.
     ];
 
@@ -155,29 +34,110 @@
     
     app.use(express.json());
 
-    // MongoDB Connection
-    // REMOVE: mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/developer_management', {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true,
-    // })
-    // .then(() => console.log('MongoDB connected successfully'))
-    // .catch(err => console.error('MongoDB connection error:', err));
+    // Sequelize Connection
+    const sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres',
+        protocol: 'postgres',
+        logging: false,
+        dialectOptions: {
+            ssl: process.env.NODE_ENV === 'production' ? {
+                require: true,
+                rejectUnauthorized: false
+            } : false
+        },
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
+    });
+
+    sequelize.authenticate()
+        .then(() => console.log('PostgreSQL connected successfully'))
+        .catch(err => console.error('PostgreSQL connection error:', err));
 
     // Schemas
-    // REMOVE: const userSchema = new mongoose.Schema({
-    //     userId: { type: String, required: true, unique: true },
-    //     passwordHash: { type: String, required: true }
-    // });
-    // const User = mongoose.model('User', userSchema);
+    const User = sequelize.define('User', {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        userId: { type: DataTypes.STRING, allowNull: false, unique: true },
+        passwordHash: { type: DataTypes.STRING, allowNull: false }
+    }, { tableName: 'users', timestamps: true });
+
+    const Client = sequelize.define('Client', {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        type: { type: DataTypes.ENUM('Developer', 'Agent', 'Litigation'), allowNull: false },
+        name: { type: DataTypes.STRING, allowNull: false },
+        promoterName: DataTypes.STRING,
+        location: DataTypes.STRING,
+        plotNo: DataTypes.STRING,
+        plotArea: DataTypes.STRING,
+        totalUnits: DataTypes.INTEGER,
+        bookedUnits: DataTypes.INTEGER,
+        workStatus: { type: DataTypes.ENUM('Not Started', 'In Progress', 'Completed'), allowNull: true },
+        reraNumber: DataTypes.STRING,
+        certificateDate: DataTypes.DATE,
+        mobile: { type: DataTypes.STRING, allowNull: false },
+        officeNumber: DataTypes.STRING,
+        email: { type: DataTypes.STRING, validate: { isEmail: true } },
+        caName: DataTypes.STRING,
+        engineerName: DataTypes.STRING,
+        architectName: DataTypes.STRING,
+        reference: DataTypes.STRING,
+        completionDate: DataTypes.DATE,
+        userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } }
+    }, { tableName: 'clients', timestamps: true });
+
+    const Document = sequelize.define('Document', {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        clientId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'clients', key: 'id' } },
+        userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } },
+        documents: { type: DataTypes.JSONB, allowNull: false, defaultValue: {} },
+        lastUpdated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
+    }, { tableName: 'documents', timestamps: true });
+
+    const Payment = sequelize.define('Payment', {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        clientId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'clients', key: 'id' } },
+        userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } },
+        amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
+        description: { type: DataTypes.STRING, allowNull: false },
+        dueDate: DataTypes.DATE,
+        paidAmount: { type: DataTypes.DECIMAL(10, 2), defaultValue: 0 },
+        transactions: { type: DataTypes.JSONB, defaultValue: [] }
+    }, { tableName: 'payments', timestamps: true });
+
+    const Task = sequelize.define('Task', {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        clientId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'clients', key: 'id' } },
+        userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } },
+        title: DataTypes.STRING,
+        service: DataTypes.STRING,
+        allocatedMembers: DataTypes.STRING,
+        assignedMembers: DataTypes.STRING,
+        priority: DataTypes.STRING,
+        dueDate: DataTypes.STRING,
+        team: DataTypes.STRING,
+        clientSource: DataTypes.STRING,
+        status: DataTypes.STRING,
+        governmentFees: DataTypes.STRING,
+        sroFees: DataTypes.STRING,
+        billAmount: DataTypes.STRING,
+        gst: DataTypes.STRING,
+        branch: DataTypes.STRING,
+        remark: DataTypes.STRING,
+        note: DataTypes.STRING,
+        description: DataTypes.STRING
+    }, { tableName: 'tasks', timestamps: true });
 
     // JWT Secret
     const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_key';
 
-    // JWT Auth Middleware
+    // Auth Middleware
     function authMiddleware(req, res, next) {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Unauthorized - No token provided' });
+            return res.status(401).json({ error: 'Unauthorized' });
         }
         const token = authHeader.split(' ')[1];
         try {
@@ -185,33 +145,23 @@
             req.user = payload;
             next();
         } catch (err) {
-            console.error('JWT verification error:', err);
-            return res.status(401).json({ error: 'Invalid or expired token' });
+            return res.status(401).json({ error: 'Invalid token' });
         }
     }
+
 
     // Register Endpoint
     app.post('/api/register', async (req, res) => {
         try {
             const { userId, password } = req.body;
-            if (!userId || !password) {
-                return res.status(400).json({ error: 'User ID and password required' });
-            }
-            if (password.length < 6) {
-                return res.status(400).json({ error: 'Password must be at least 6 characters' });
-            }
+            if (!userId || !password) return res.status(400).json({ error: 'User ID and password required' });
+            if (password.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters' });
             const existing = await User.findOne({ where: { userId } });
-            if (existing) {
-                return res.status(400).json({ error: 'User ID already exists' });
-            }
+            if (existing) return res.status(400).json({ error: 'User ID already exists' });
             const user = await User.create({ userId, passwordHash: password });
             res.status(201).json({ message: 'User registered successfully' });
         } catch (err) {
-            console.error('Register error:', err);
-            res.status(500).json({ 
-                error: 'Registration failed',
-                details: process.env.NODE_ENV === 'development' ? err.message : 'Server error'
-            });
+            res.status(500).json({ error: 'Registration failed', details: err.message });
         }
     });
 
@@ -226,130 +176,6 @@
         const token = jwt.sign({ userId: user.userId, _id: user.id }, JWT_SECRET, { expiresIn: '7d' });
         res.json({ token });
     });
-
-    // const clientSchema = new mongoose.Schema({
-    //     type: {
-    //         type: String,
-    //         required: true,
-    //         enum: ['Developer', 'Agent', 'Litigation']
-    //     },
-    //     name: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     promoterName: String,
-    //     location: String,
-    //     plotNo: String,
-    //     plotArea: String,
-    //     totalUnits: Number,
-    //     bookedUnits: Number,
-    //     workStatus: {
-    //         type: String,
-    //         enum: ['Not Started', 'In Progress', 'Completed'],
-    //         required: false
-    //     },
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // owner
-    //     reraNumber: String,
-    //     certificateDate: Date,
-    //     mobile: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     officeNumber: String,
-    //     email: String,
-    //     caName: String,
-    //     engineerName: String,
-    //     architectName: String,
-    //     reference: String,
-    //     completionDate: Date,
-    //     dateCreated: {
-    //         type: Date,
-    //         default: Date.now
-    //     }
-    // });
-
-    // const documentSchema = new mongoose.Schema({
-    //     clientId: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Client',
-    //         required: true
-    //     },
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // owner
-    //     documents: {
-    //         type: Map,
-    //         of: String, // 'received' or 'not-received'
-    //         default: {}
-    //     },
-    //     lastUpdated: {
-    //         type: Date,
-    //         default: Date.now
-    //     }
-    // });
-
-    // const paymentSchema = new mongoose.Schema({
-    //     clientId: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Client',
-    //         required: true
-    //     },
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // owner
-    //     amount: {
-    //         type: Number,
-    //         required: true
-    //     },
-    //     description: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     dueDate: Date,
-    //     paidAmount: {
-    //         type: Number,
-    //         default: 0
-    //     },
-    //     transactions: [{
-    //         amount: Number,
-    //         date: Date,
-    //         notes: String,
-    //         timestamp: {
-    //             type: Date,
-    //             default: Date.now
-    //         }
-    //     }],
-    //     dateCreated: {
-    //         type: Date,
-    //         default: Date.now
-    //     }
-    // });
-
-    // Models
-    // REMOVE: const Client = mongoose.model('Client', clientSchema);
-    // REMOVE: const Document = mongoose.model('Document', documentSchema);
-    // REMOVE: const Payment = mongoose.model('Payment', paymentSchema);
-
-    // Task model
-    // REMOVE: const taskSchema = new mongoose.Schema({
-    //     clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    //     title: String,
-    //     service: String,
-    //     allocatedMembers: String,
-    //     assignedMembers: String,
-    //     priority: String,
-    //     dueDate: String,
-    //     team: String,
-    //     clientSource: String,
-    //     status: String,
-    //     governmentFees: String,
-    //     sroFees: String,
-    //     billAmount: String,
-    //     gst: String,
-    //     branch: String,
-    //     remark: String,
-    //     note: String,
-    //     description: String,
-    //     dateCreated: { type: Date, default: Date.now }
-    // });
-    // REMOVE: const Task = mongoose.model('Task', taskSchema);
 
     // Default documents list
     const defaultDocuments = [
@@ -397,85 +223,45 @@
     // Client Routes
     app.get('/api/clients', authMiddleware, async (req, res) => {
         try {
-            const clients = await Client.findAll({ where: { userId: req.user._id } });
+            const clients = await Client.findAll({ where: { userId: req.user.id }, order: [['createdAt', 'DESC']] });
             res.json(clients);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     });
 
-    // Helper to convert empty strings to null
-    function sanitizeValue(value) {
-        if (value === '' || value === undefined || value === null) {
-            return null;
-        }
-        return value;
-    }
-
-    // Update /api/clients POST endpoint
     app.post('/api/clients', authMiddleware, async (req, res) => {
         try {
-            const { type, name, mobile, office_number, email, ca_name, engineer_name, architect_name, reference, certificate_date, completion_date } = req.body;
-            // Validate required fields
-            if (!type || !name || !mobile) {
-                return res.status(400).json({
-                    error: 'Validation failed',
-                    message: 'Type, name, and mobile are required fields',
-                    details: [
-                        !type && { field: 'type', message: 'Type is required' },
-                        !name && { field: 'name', message: 'Name is required' },
-                        !mobile && { field: 'mobile', message: 'Mobile is required' }
-                    ].filter(Boolean)
-                });
-            }
-            const clientData = {
-                user_id: req.user.id,
-                type: type.trim(),
-                name: name.trim(),
-                mobile: mobile.trim(),
-                office_number: office_number?.trim() || null,
-                email: email?.trim() || null,
-                ca_name: ca_name?.trim() || null,
-                engineer_name: engineer_name?.trim() || null,
-                architect_name: architect_name?.trim() || null,
-                reference: reference?.trim() || null,
-                certificate_date: certificate_date || null,
-                completion_date: completion_date || null
-            };
+            const clientData = req.body;
+            clientData.userId = req.user.id;
+            
             const client = await Client.create(clientData);
-            res.status(201).json({
-                message: 'Client created successfully',
-                client: client
+            
+            // Create default documents for the client
+            const documentMap = new Map();
+            defaultDocuments.forEach(doc => {
+                documentMap.set(doc, 'not-received');
             });
-        } catch (err) {
-            console.error('Client creation error:', err);
-            if (err.name === 'SequelizeValidationError') {
-                return res.status(400).json({
-                    error: 'Validation failed',
-                    details: err.errors.map(e => ({
-                        field: e.path,
-                        message: e.message,
-                        value: e.value
-                    }))
-                });
-            }
-            if (err.name === 'SequelizeDatabaseError') {
-                return res.status(400).json({
-                    error: 'Database error',
-                    message: 'Please check your input data format'
-                });
-            }
-            res.status(500).json({
-                error: 'Failed to create client',
-                message: process.env.NODE_ENV === 'development' ? err.message : 'Server error'
+            
+            const clientDocuments = await Document.create({
+                clientId: client.id,
+                userId: req.user.id,
+                documents: documentMap
             });
+            
+            const clientResponse = client.toJSON();
+            res.status(201).json(clientResponse);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
         }
     });
 
     app.get('/api/clients/:id', authMiddleware, async (req, res) => {
         try {
-            const client = await Client.findOne({ where: { id: req.params.id, userId: req.user._id } });
-            if (!client) return res.status(404).json({ error: 'Client not found' });
+            const client = await Client.findByPk(req.params.id, { attributes: { exclude: ['passwordHash'] } });
+            if (!client) {
+                return res.status(404).json({ error: 'Client not found' });
+            }
             res.json(client);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -488,8 +274,8 @@
             // Prevent duplicate client name/location for the same user
             const duplicate = await Client.findOne({
                 where: {
-                    id: { [Sequelize.Op.ne]: req.params.id },
-                    userId: req.user._id,
+                    _id: { [sequelize.Op.ne]: req.params.id },
+                    userId: req.user.id,
                     name: updateData.name,
                     location: updateData.location
                 }
@@ -497,9 +283,11 @@
             if (duplicate) {
                 return res.status(400).json({ error: 'A client with this name and location already exists.' });
             }
-            const [updated] = await Client.update(updateData, { where: { id: req.params.id, userId: req.user._id } });
-            if (!updated) return res.status(404).json({ error: 'Client not found' });
-            const client = await Client.findByPk(req.params.id);
+            const client = await Client.findByPk(req.params.id, { attributes: { exclude: ['passwordHash'] } });
+            if (!client) {
+                return res.status(404).json({ error: 'Client not found' });
+            }
+            await client.update(updateData);
             res.json(client);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -508,12 +296,14 @@
 
     app.delete('/api/clients/:id', authMiddleware, async (req, res) => {
         try {
-            const client = await Client.findOne({ where: { id: req.params.id, userId: req.user._id } });
-            if (!client) return res.status(404).json({ error: 'Client not found' });
+            const client = await Client.findByPk(req.params.id);
+            if (!client) {
+                return res.status(404).json({ error: 'Client not found' });
+            }
+            // Delete related documents, payments, and tasks
             await Document.destroy({ where: { clientId: req.params.id } });
             await Payment.destroy({ where: { clientId: req.params.id } });
             await Task.destroy({ where: { clientId: req.params.id } });
-            await client.destroy();
             res.json({ message: 'Client deleted successfully' });
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -524,7 +314,9 @@
     app.get('/api/documents/:clientId', authMiddleware, async (req, res) => {
         try {
             const documents = await Document.findOne({ where: { clientId: req.params.clientId } });
-            if (!documents) return res.status(404).json({ error: 'Documents not found' });
+            if (!documents) {
+                return res.status(404).json({ error: 'Documents not found' });
+            }
             res.json(documents);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -534,13 +326,16 @@
     app.put('/api/documents/:clientId', authMiddleware, async (req, res) => {
         try {
             const { documentName, status } = req.body;
+            
             const documents = await Document.findOne({ where: { clientId: req.params.clientId } });
-            if (!documents) return res.status(404).json({ error: 'Documents not found' });
-            const docMap = documents.documents || {};
-            docMap[documentName] = status;
-            documents.documents = docMap;
+            if (!documents) {
+                return res.status(404).json({ error: 'Documents not found' });
+            }
+            
+            documents.documents[documentName] = status;
             documents.lastUpdated = new Date();
             await documents.save();
+            
             res.json(documents);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -550,16 +345,20 @@
     app.post('/api/documents/:clientId/add', authMiddleware, async (req, res) => {
         try {
             const { documentName } = req.body;
+            
             const documents = await Document.findOne({ where: { clientId: req.params.clientId } });
-            if (!documents) return res.status(404).json({ error: 'Documents not found' });
-            const docMap = documents.documents || {};
-            if (docMap[documentName]) {
+            if (!documents) {
+                return res.status(404).json({ error: 'Documents not found' });
+            }
+            
+            if (documents.documents.hasOwnProperty(documentName)) {
                 return res.status(400).json({ error: 'Document already exists' });
             }
-            docMap[documentName] = 'not-received';
-            documents.documents = docMap;
+            
+            documents.documents[documentName] = 'not-received';
             documents.lastUpdated = new Date();
             await documents.save();
+            
             res.json(documents);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -582,7 +381,7 @@
             if (!paymentData.clientId) {
                 return res.status(400).json({ error: 'clientId is required' });
             }
-            paymentData.userId = req.user._id;
+            paymentData.userId = req.user.id; // Ensure userId is set from the logged-in user
             const payment = await Payment.create(paymentData);
             res.json(payment);
         } catch (error) {
@@ -593,19 +392,27 @@
     app.put('/api/payments/:id/record', authMiddleware, async (req, res) => {
         try {
             const { amount, date, notes } = req.body;
+            
             const payment = await Payment.findByPk(req.params.id);
             if (!payment) {
                 return res.status(404).json({ error: 'Payment not found' });
             }
-            const remainingAmount = payment.amount - (payment.paidAmount || 0);
+            
+            const remainingAmount = payment.amount - payment.paidAmount;
             if (amount > remainingAmount) {
                 return res.status(400).json({ error: 'Amount exceeds remaining balance' });
             }
-            const transactions = payment.transactions || [];
-            transactions.push({ amount, date, notes, timestamp: new Date() });
-            payment.transactions = transactions;
-            payment.paidAmount = (payment.paidAmount || 0) + amount;
+            
+            payment.transactions.push({
+                amount,
+                date,
+                notes,
+                timestamp: new Date()
+            });
+            
+            payment.paidAmount += amount;
             await payment.save();
+            
             res.json(payment);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -618,6 +425,7 @@
             if (!payment) {
                 return res.status(404).json({ error: 'Payment not found' });
             }
+            // Only allow delete if fully received
             if ((payment.paidAmount || 0) < payment.amount) {
                 return res.status(400).json({ error: 'Cannot delete payment unless it is fully received.' });
             }
@@ -628,9 +436,10 @@
         }
     });
 
+    // Add this route to return all payments for the current user
     app.get('/api/payments', authMiddleware, async (req, res) => {
         try {
-            const payments = await Payment.findAll({ where: { userId: req.user._id } });
+            const payments = await Payment.findAll({ where: { userId: req.user.id } });
             res.json(payments);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -641,17 +450,18 @@
     app.post('/api/tasks', authMiddleware, async (req, res) => {
         try {
             const taskData = req.body;
+            // Ensure clientId is present and valid
             if (!taskData.clientId) {
                 return res.status(400).json({ error: 'clientId is required' });
             }
-            taskData.userId = req.user._id;
+            // Set userId from the logged-in user
+            taskData.userId = req.user.id;
             const task = await Task.create(taskData);
             res.json(task);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
     });
-
     app.get('/api/tasks/:clientId', authMiddleware, async (req, res) => {
         try {
             const tasks = await Task.findAll({ where: { clientId: req.params.clientId } });
@@ -661,6 +471,7 @@
         }
     });
 
+    // Add this endpoint to allow deleting a task by its ID
     app.delete('/api/tasks/:id', authMiddleware, async (req, res) => {
         try {
             const task = await Task.findByPk(req.params.id);
@@ -674,14 +485,15 @@
         }
     });
 
+    // Add this endpoint to allow updating a task by its ID
     app.put('/api/tasks/:id', authMiddleware, async (req, res) => {
         try {
             const updateData = req.body;
-            const [updated] = await Task.update(updateData, { where: { id: req.params.id } });
-            if (!updated) {
+            const task = await Task.findByPk(req.params.id);
+            if (!task) {
                 return res.status(404).json({ error: 'Task not found' });
             }
-            const task = await Task.findByPk(req.params.id);
+            await task.update(updateData);
             res.json(task);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -694,13 +506,14 @@
             const { q } = req.query;
             const clients = await Client.findAll({
                 where: {
-                    userId: req.user._id,
-                    [Sequelize.Op.or]: [
-                        { name: { [Sequelize.Op.iLike]: `%${q}%` } },
-                        { promoterName: { [Sequelize.Op.iLike]: `%${q}%` } },
-                        { location: { [Sequelize.Op.iLike]: `%${q}%` } }
+                    userId: req.user.id,
+                    [sequelize.Op.or]: [
+                        { name: { [sequelize.Op.iLike]: `%${q}%` } },
+                        { promoterName: { [sequelize.Op.iLike]: `%${q}%` } },
+                        { location: { [sequelize.Op.iLike]: `%${q}%` } }
                     ]
-                }
+                },
+                attributes: { exclude: ['passwordHash'] }
             });
             res.json(clients);
         } catch (error) {
@@ -708,17 +521,18 @@
         }
     });
 
-    // User info endpoint
+    // Add this route after your other API routes:
     app.get('/api/user', authMiddleware, async (req, res) => {
-        res.json({ userId: req.user.userId, _id: req.user._id });
+        // You may want to return more user info if you store it
+        res.json({ userId: req.user.userId, _id: req.user.id });
     });
 
     // Endpoint to export pending documents for all clients in PDF format
     app.get('/api/export/pending-documents', authMiddleware, async (req, res) => {
         try {
-            // REMOVE: const clients = await Client.find({ userId: req.user._id });
-            // REMOVE: const clientIds = clients.map(c => c._id);
-            // REMOVE: const documentsList = await Document.find({ clientId: { $in: clientIds } });
+            const clients = await Client.findAll({ where: { userId: req.user.id } });
+            const clientIds = clients.map(c => c.id);
+            const documentsList = await Document.findAll({ where: { clientId: { [sequelize.Op.in]: clientIds } } });
 
             // Prepare PDF
             const doc = new PDFDocument();
@@ -727,19 +541,19 @@
             doc.pipe(res);
             doc.fontSize(18).text('Pending Documents', { align: 'center' });
             doc.moveDown();
-            // REMOVE: for (const client of clients) {
-            //     const docEntry = documentsList.find(d => d.clientId.toString() === client._id.toString());
-            //     if (docEntry && docEntry.documents) {
-            //         const pendingDocs = Array.from(docEntry.documents.entries()).filter(([_, status]) => status === 'not-received');
-            //         if (pendingDocs.length > 0) {
-            //             doc.fontSize(14).text(client.name, { underline: true });
-            //             pendingDocs.forEach(([docName]) => {
-            //                 doc.fontSize(12).text(docName, { indent: 20 });
-            //             });
-            //             doc.moveDown();
-            //         }
-            //     }
-            // }
+            for (const client of clients) {
+                const docEntry = documentsList.find(d => d.clientId === client.id);
+                if (docEntry && docEntry.documents) {
+                    const pendingDocs = Object.entries(docEntry.documents).filter(([_, status]) => status === 'not-received');
+                    if (pendingDocs.length > 0) {
+                        doc.fontSize(14).text(client.name, { underline: true });
+                        pendingDocs.forEach(([docName]) => {
+                            doc.fontSize(12).text(docName, { indent: 20 });
+                        });
+                        doc.moveDown();
+                    }
+                }
+            }
             doc.end();
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -748,11 +562,11 @@
     // Endpoint to export pending documents for a single client in PDF format
     app.get('/api/export/pending-documents/:clientId', authMiddleware, async (req, res) => {
         try {
-            // REMOVE: const client = await Client.findOne({ _id: req.params.clientId, userId: req.user._id });
-            // REMOVE: if (!client) return res.status(404).json({ error: 'Client not found' });
-            // REMOVE: const docEntry = await Document.findOne({ clientId: client._id });
-            // REMOVE: if (!docEntry) return res.status(404).json({ error: 'Documents not found' });
-            // REMOVE: const pendingDocs = Array.from(docEntry.documents.entries()).filter(([_, status]) => status === 'not-received');
+            const client = await Client.findOne({ where: { _id: req.params.clientId, userId: req.user.id } });
+            if (!client) return res.status(404).json({ error: 'Client not found' });
+            const docEntry = await Document.findOne({ where: { clientId: client.id } });
+            if (!docEntry) return res.status(404).json({ error: 'Documents not found' });
+            const pendingDocs = Object.entries(docEntry.documents).filter(([_, status]) => status === 'not-received');
             // Prepare PDF
             const doc = new PDFDocument();
             res.setHeader('Content-Type', 'application/pdf');
@@ -760,13 +574,13 @@
             doc.pipe(res);
             doc.fontSize(18).text(`Pending Documents for ${client.name}`, { align: 'center' });
             doc.moveDown();
-            // REMOVE: if (pendingDocs.length === 0) {
-            //     doc.fontSize(12).text('No pending documents.');
-            // } else {
-            //     pendingDocs.forEach(([docName]) => {
-            //         doc.fontSize(12).text(docName);
-            //     });
-            // }
+            if (pendingDocs.length === 0) {
+                doc.fontSize(12).text('No pending documents.');
+            } else {
+                pendingDocs.forEach(([docName]) => {
+                    doc.fontSize(12).text(docName);
+                });
+            }
             doc.end();
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -780,14 +594,8 @@
 
     // Error handling middleware
     app.use((err, req, res, next) => {
-        if (err.name === 'SequelizeDatabaseError' && err.message.includes('invalid input syntax for type integer')) {
-            return res.status(400).json({
-                error: 'Invalid data format',
-                message: 'Please check that all numeric fields contain valid numbers or are left empty.'
-            });
-        }
-        console.error('Unhandled error:', err);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error(err.stack);
+        res.status(500).json({ error: 'Something went wrong!' });
     });
 
     // Serve static files from the 'public' directory
