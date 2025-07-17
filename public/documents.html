@@ -4067,6 +4067,46 @@
                 // handle response...
             });
         }
+
+        function initializeClientForm() {
+            const clientForm = document.getElementById('clientForm');
+            if (!clientForm) return;
+            clientForm.removeEventListener('submit', handleClientSubmit);
+            clientForm.addEventListener('submit', handleClientSubmit);
+        }
+
+        async function handleClientSubmit(event) {
+            event.preventDefault();
+            try {
+                const formData = new FormData(event.target);
+                const clientData = {};
+                for (let [key, value] of formData.entries()) {
+                    if (value.trim() === '') {
+                        clientData[key] = null;
+                    } else {
+                        clientData[key] = value.trim();
+                    }
+                }
+                const response = await makeAuthenticatedRequest('/api/clients', {
+                    method: 'POST',
+                    body: JSON.stringify(clientData)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                alert('Client created successfully!');
+                event.target.reset();
+                if (typeof loadClientsHome === 'function') {
+                    loadClientsHome();
+                }
+            } catch (error) {
+                console.error('Error creating client:', error);
+                alert('Error creating client. Please try again.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeClientForm);
     </script>
 </body>
 </html>
