@@ -14,14 +14,21 @@
 
     // Sequelize connection
     const sequelize = new Sequelize(process.env.DATABASE_URL, {
-      dialect: 'postgres',
-      protocol: 'postgres',
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false
+        dialect: 'postgres',
+        protocol: 'postgres',
+        logging: console.log,
+        dialectOptions: {
+            ssl: process.env.NODE_ENV === 'production' ? {
+                require: true,
+                rejectUnauthorized: false
+            } : false
+        },
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
         }
-      }
     });
 
     // Sequelize Models
@@ -108,12 +115,21 @@
     Task.belongsTo(Client, { foreignKey: 'clientId' });
 
     // Sync models (for dev, use migrations for prod)
-    sequelize.sync({ alter: true }) // Ensure tables are created/updated. Comment out after first run in production.
+    // sequelize.sync({ alter: true }) // Ensure tables are created/updated. Comment out after first run in production.
 
-    // Test connection
+    // Robust DB connection and sync
     sequelize.authenticate()
-      .then(() => console.log('PostgreSQL connected successfully'))
-      .catch(err => console.error('PostgreSQL connection error:', err));
+        .then(() => {
+            console.log('PostgreSQL connected successfully');
+            return sequelize.sync({ alter: true });
+        })
+        .then(() => {
+            console.log('Database synchronized');
+        })
+        .catch(err => {
+            console.error('Database connection/sync error:', err);
+            process.exit(1);
+        });
 
     // Middleware
 
@@ -157,11 +173,11 @@
     // JWT Secret
     const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_key';
 
-    // Auth Middleware
+    // JWT Auth Middleware
     function authMiddleware(req, res, next) {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized - No token provided' });
         }
         const token = authHeader.split(' ')[1];
         try {
@@ -169,7 +185,8 @@
             req.user = payload;
             next();
         } catch (err) {
-            return res.status(401).json({ error: 'Invalid token' });
+            console.error('JWT verification error:', err);
+            return res.status(401).json({ error: 'Invalid or expired token' });
         }
     }
 
@@ -177,15 +194,24 @@
     app.post('/api/register', async (req, res) => {
         try {
             const { userId, password } = req.body;
-            if (!userId || !password) return res.status(400).json({ error: 'User ID and password required' });
+            if (!userId || !password) {
+                return res.status(400).json({ error: 'User ID and password required' });
+            }
+            if (password.length < 6) {
+                return res.status(400).json({ error: 'Password must be at least 6 characters' });
+            }
             const existing = await User.findOne({ where: { userId } });
-            if (existing) return res.status(400).json({ error: 'User ID already exists' });
-            // Store password as plain text (for now, as before)
+            if (existing) {
+                return res.status(400).json({ error: 'User ID already exists' });
+            }
             const user = await User.create({ userId, passwordHash: password });
-            res.json({ message: 'User registered successfully' });
+            res.status(201).json({ message: 'User registered successfully' });
         } catch (err) {
             console.error('Register error:', err);
-            res.status(500).json({ error: 'Registration failed', details: err.message });
+            res.status(500).json({ 
+                error: 'Registration failed',
+                details: process.env.NODE_ENV === 'development' ? err.message : 'Server error'
+            });
         }
     });
 
