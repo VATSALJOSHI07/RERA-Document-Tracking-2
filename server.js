@@ -19,7 +19,7 @@
       dialectOptions: {
         ssl: {
           require: true,
-          rejectUnauthorized: false // <<-- This is the key for self-signed certs
+          rejectUnauthorized: false
         }
       }
     });
@@ -175,13 +175,18 @@
 
     // Register Endpoint
     app.post('/api/register', async (req, res) => {
-        const { userId, password } = req.body;
-        if (!userId || !password) return res.status(400).json({ error: 'User ID and password required' });
-        const existing = await User.findOne({ where: { userId } });
-        if (existing) return res.status(400).json({ error: 'User ID already exists' });
-        // Store password as plain text (for now, as before)
-        const user = await User.create({ userId, passwordHash: password });
-        res.json({ message: 'User registered successfully' });
+        try {
+            const { userId, password } = req.body;
+            if (!userId || !password) return res.status(400).json({ error: 'User ID and password required' });
+            const existing = await User.findOne({ where: { userId } });
+            if (existing) return res.status(400).json({ error: 'User ID already exists' });
+            // Store password as plain text (for now, as before)
+            const user = await User.create({ userId, passwordHash: password });
+            res.json({ message: 'User registered successfully' });
+        } catch (err) {
+            console.error('Register error:', err);
+            res.status(500).json({ error: 'Registration failed', details: err.message });
+        }
     });
 
     // Login Endpoint
