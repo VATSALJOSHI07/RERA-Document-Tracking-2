@@ -404,59 +404,30 @@
         }
     });
 
+    // Helper to validate and convert integer fields
+    function validateAndConvertIntegers(data, integerFields) {
+        const validated = { ...data };
+        integerFields.forEach(field => {
+            if (validated[field] === '' || validated[field] === undefined) {
+                validated[field] = null;
+            } else if (typeof validated[field] === 'string' && validated[field] !== '') {
+                const parsed = parseInt(validated[field]);
+                validated[field] = isNaN(parsed) ? null : parsed;
+            }
+        });
+        return validated;
+    }
+
+    // Update /api/clients POST endpoint
     app.post('/api/clients', authMiddleware, async (req, res) => {
         try {
-            const clientData = req.body;
-            clientData.userId = req.user._id;
-            const client = await Client.create(clientData);
-            // Create default documents for the client
-            const defaultDocuments = [
-                'PAN Card of the Firm/Company',
-                'Udyam Aadhar / Gumasta',
-                'KYC of Partners',
-                'KYC of Authorized Signatory',
-                'Board Resolution',
-                'Commencement Certificate',
-                'Approved Plan Layout',
-                'RERA Carpet Area Statement',
-                'Sale Deed',
-                'Power of Attorney',
-                'Mortgage Deed',
-                'Tally Data',
-                'Form 3 – CA Certificate',
-                'Bifurcation of Units',
-                'Bank Account Details',
-                'Title Report',
-                'Form 1 – Architect Certificate',
-                'Letterhead',
-                'Partnership Deed',
-                'GST Certificate',
-                'Land Ownership Documents',
-                'Agreement for Sale and Deviation Reports',
-                'Allotment Letter and Deviation Reports',
-                'Project Name',
-                'Completion Date',
-                'Architect Details',
-                'RCC Consultant Details',
-                'CA Details',
-                'Contact Person Details for MahaRERA Profile',
-                'Loan and Litigation Information',
-                'Phase-wise Project Details',
-                'Google Map Location of the Project',
-                'Address Proof of the Organization',
-                "NOC if Address Proof is not in the firm's name",
-                'CC Verification Email Screenshot',
-                'Amenities Details',
-                'SRO Membership Certificate'
-            ];
-            const documentMap = {};
-            defaultDocuments.forEach(doc => {
-                documentMap[doc] = 'not-received';
-            });
-            await Document.create({ clientId: client.id, userId: req.user._id, documents: documentMap });
+            const integerFields = ['totalUnits', 'bookedUnits', 'officeNumber', 'reference'];
+            const validatedData = validateAndConvertIntegers(req.body, integerFields);
+            const client = await Client.create(validatedData);
             res.status(201).json(client);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
+        } catch (err) {
+            console.error('Client creation error:', err);
+            res.status(500).json({ error: 'Failed to create client', details: err.message });
         }
     });
 
@@ -768,8 +739,14 @@
 
     // Error handling middleware
     app.use((err, req, res, next) => {
-        console.error(err.stack);
-        res.status(500).json({ error: 'Something went wrong!' });
+        if (err.name === 'SequelizeDatabaseError' && err.message.includes('invalid input syntax for type integer')) {
+            return res.status(400).json({
+                error: 'Invalid data format',
+                message: 'Please check that all numeric fields contain valid numbers or are left empty.'
+            });
+        }
+        console.error('Unhandled error:', err);
+        res.status(500).json({ error: 'Internal server error' });
     });
 
     // Serve static files from the 'public' directory
