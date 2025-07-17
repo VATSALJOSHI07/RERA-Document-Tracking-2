@@ -300,8 +300,6 @@
             padding: 20px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            position: relative;
-            min-height: 120px;
         }
 
         .payment-item:hover {
@@ -356,8 +354,6 @@
             max-width: 500px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             animation: modalSlideIn 0.3s ease;
-            max-height: 80vh;
-            overflow-y: auto;
         }
 
         @keyframes modalSlideIn {
@@ -473,491 +469,9 @@
                 grid-template-columns: 1fr;
             }
         }
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6fa;
-            color: #333;
-        }
-        .app-container {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 250px;
-            background: #22314a;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            height: 100vh;
-            z-index: 100;
-            min-height: 0;
-        }
-        .sidebar .logo {
-            font-size: 1.7em;
-            font-weight: bold;
-            letter-spacing: 2px;
-            padding: 32px 0 24px 32px;
-            color: #fff;
-        }
-        .sidebar-nav {
-            flex: 1 1 0%;
-            overflow-y: auto;
-            min-height: 0;
-        }
-        .sidebar-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sidebar-nav li {
-            margin-bottom: 8px;
-        }
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            padding: 14px 32px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1em;
-            border-left: 4px solid transparent;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        .sidebar-nav a.active, .sidebar-nav a:hover {
-            background: #2d4263;
-            border-left: 4px solid #4f8cff;
-        }
-        .sidebar-nav .icon {
-            margin-right: 14px;
-            font-size: 1.2em;
-        }
-        .sidebar-bottom {
-            padding: 24px 32px;
-            border-top: 1px solid #2d4263;
-            background: #22314a;
-            position: sticky;
-            bottom: 0;
-            z-index: 2;
-        }
-        .user-info {
-            margin-bottom: 12px;
-        }
-        .user-info .user-name {
-            font-weight: 600;
-        }
-        .logout-btn {
-            background: #f56565;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 18px;
-            font-size: 1em;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
-            transition: background 0.2s;
-        }
-        .logout-btn:hover {
-            background: #c53030;
-        }
-        @media (max-width: 768px) {
-            .sidebar-bottom {
-                padding-bottom: 40px;
-            }
-        }
-        .main-content {
-            margin-left: 250px;
-            flex: 1;
-            padding: 40px 40px 40px 40px;
-            min-height: 100vh;
-        }
-        .home-cards {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        .home-card {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            padding: 32px 36px 28px 36px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            min-width: 220px;
-        }
-        .home-card-icon {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-        }
-        .home-card-title {
-            font-size: 1.1em;
-            color: #6b7280;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-        .home-card-value {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #22223b;
-        }
-        .home-search-row {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .home-search-row input[type="text"] {
-            flex: 1;
-            padding: 16px 22px;
-            border-radius: 999px;
-            border: 1.5px solid #e5e7eb;
-            font-size: 1.08em;
-            background: #fff;
-            transition: border 0.2s;
-        }
-        .home-search-row input[type="text"]:focus {
-            border: 1.5px solid #4f8cff;
-            outline: none;
-        }
-        .add-client-btn {
-            background: #22c55e;
-            color: #fff;
-            border: none;
-            border-radius: 999px;
-            padding: 14px 36px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 2px 8px rgba(34,197,94,0.08);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .add-client-btn:hover {
-            background: #16a34a;
-        }
-        .client-list {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            padding: 0;
-            margin-bottom: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .client-list-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 32px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: default;
-            transition: background 0.15s;
-        }
-        .client-list-item:last-child {
-            border-bottom: none;
-        }
-        .client-list-item.selected {
-            background: #f4f8ff;
-        }
-        .client-list-name {
-            flex: 1;
-            font-size: 1.08em;
-        }
-        .client-list-actions {
-            display: flex;
-            gap: 16px;
-        }
-        .client-list-action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-            color: #4f8cff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background 0.15s;
-            display: flex;
-            align-items: center;
-        }
-        .client-list-action-btn:hover {
-            background: #e6f0ff;
-        }
-        .client-details-panel {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            padding: 32px;
-            margin-top: 16px;
-        }
-        @media (max-width: 900px) {
-            .main-content {
-                padding: 24px 8px 24px 8px;
-            }
-            .home-cards {
-                flex-direction: column;
-            }
-        }
-        .record-payment-btn-modal {
-            position: absolute;
-            right: 24px;
-            bottom: 24px;
-            z-index: 2;
-            min-width: 180px;
-            font-size: 1.1em;
-            padding: 16px 32px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        .payments-client-list-block {
-            width: 100%;
-            margin-top: 24px;
-            margin-bottom: 0;
-        }
-        #documentsModalTable th, #documentsModalTable td {
-            padding: 18px 28px !important;
-            font-size: 1.1em;
-        }
-        #documentsModalTable .btn {
-            padding: 18px 40px;
-            font-size: 1.15em;
-            border-radius: 30px;
-        }
-        .modal-content {
-            max-width: 1000px !important;
-            min-width: 700px;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 10px 22px;
-            border-radius: 22px;
-            font-weight: 600;
-            font-size: 1em;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            margin: 0 auto;
-            min-width: 110px;
-            text-align: center;
-        }
-        .status-badge.received {
-            background: #38a169;
-            color: #fff;
-        }
-        .status-badge.not-received {
-            background: #fed7d7;
-            color: #c53030;
-            border: 1.5px solid #feb2b2;
-        }
-        #paymentDetailsModal {
-            z-index: 1000;
-        }
-        #recordPaymentModal {
-            z-index: 2000 !important;
-        }
-        #documentsSection h2 {
-            margin-bottom: 32px;
-        }
-        #tasksSection h2 {
-            margin-bottom: 32px;
-        }
-        @media (max-width: 1200px) {
-            .main-content {
-                padding: 24px 8px 24px 8px;
-            }
-            .home-cards {
-                flex-direction: column;
-            }
-        }
-        @media (max-width: 900px) {
-            .main-content {
-                margin-left: 0;
-                padding: 16px 4px 16px 4px;
-            }
-            .sidebar {
-                width: 200px;
-            }
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -250px;
-                top: 0;
-                width: 270px;
-                height: 100vh;
-                z-index: 2000;
-                transition: left 0.3s;
-            }
-            .sidebar.open {
-                left: 0;
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 12px 2vw;
-            }
-            .app-container {
-                flex-direction: column;
-            }
-            .home-cards {
-                flex-direction: column;
-            }
-            .documents-grid, .client-list {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                min-width: unset !important;
-                max-width: 98vw !important;
-                width: 98vw !important;
-                padding: 12px;
-            }
-            #documentsModalTable th, #documentsModalTable td {
-                padding: 8px 6px !important;
-                font-size: 0.98em;
-            }
-            #documentsSection .home-search-row,
-            #homeSection .home-search-row,
-            #paymentsSection .home-search-row,
-            #tasksSection .home-search-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            #addClientBtn,
-            #downloadPendingDocsBtn,
-            #addPaymentSection .btn,
-            #addTaskModal .btn,
-            #addPaymentModal .btn,
-            #recordPaymentModal .btn,
-            #addCustomDocumentForm .btn {
-                width: 100%;
-                margin-left: 0 !important;
-                margin-top: 8px;
-                border-radius: 16px;
-                font-size: 1em;
-            }
-            #homeSection h2,
-            #documentsSection h2,
-            #paymentsSection h2,
-            #tasksSection h2 {
-                margin-top: 18px;
-                font-size: 1.3em;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            .home-card {
-                width: 100%;
-                min-width: unset;
-                padding: 18px 10px 18px 10px;
-                margin-bottom: 12px;
-            }
-            .client-list-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-                padding: 12px 10px;
-            }
-            .client-list-actions {
-                width: 100%;
-                justify-content: flex-start;
-                gap: 10px;
-            }
-        }
-        @media (max-width: 600px) {
-            .sidebar {
-                width: 220px;
-            }
-            .sidebar .logo {
-                font-size: 1.1em;
-                padding: 18px 0 12px 18px;
-            }
-            .sidebar-nav a {
-                font-size: 0.98em;
-                padding: 10px 18px;
-            }
-            .sidebar-bottom {
-                padding: 12px 18px;
-            }
-            .modal-content {
-                padding: 8px;
-            }
-            .form-group label, .form-group input, .form-group select, .form-group textarea {
-                font-size: 0.98em;
-            }
-            .btn, .add-client-btn {
-                font-size: 0.98em;
-                padding: 10px 18px;
-            }
-        }
-        @media (max-width: 400px) {
-            .sidebar {
-                width: 160px;
-            }
-            .sidebar .logo {
-                font-size: 0.9em;
-                padding: 10px 0 8px 10px;
-            }
-            .main-content {
-                padding: 4px 1vw;
-            }
-        }
-        /* Hamburger menu for mobile */
-        .hamburger {
-            display: none;
-            position: fixed;
-            top: 18px;
-            left: 18px;
-            z-index: 3000;
-            width: 36px;
-            height: 36px;
-            background: #22314a;
-            border-radius: 8px;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 3px;
-            background: #fff;
-            margin: 4px 0;
-            border-radius: 2px;
-        }
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-        }
-        /* Hide main app (including headings/icons) when not authenticated */
-        #mainApp[style*="display: none"] h2,
-        #mainApp[style*="display: none"] .home-card,
-        #mainApp[style*="display: none"] .home-search-row,
-        #mainApp[style*="display: none"] .client-list,
-        #mainApp[style*="display: none"] .client-details-panel {
-            display: none !important;
-        }
-        .sidebar-nav a {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
     </style>
 </head>
 <body>
-    <div class="hamburger" id="hamburgerMenu" onclick="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
     <!-- Login/Register Modal -->
     <div id="authModal" class="modal" style="display:none;">
         <div class="modal-content">
@@ -978,250 +492,121 @@
             <p style="margin-top:10px; display:none;" id="backToLogin"><a href="#" onclick="showLogin()">Back to Login</a></p>
         </div>
     </div>
-    <div id="mainApp" style="display:none;">
-    <div class="app-container">
-        <nav class="sidebar">
-            <div>
-                <div class="logo">RERA Easy</div>
-                <div class="sidebar-nav">
-                    <ul>
-                        <li><a href="#" class="active" id="navHome"><span class="icon">🏠</span>Home</a></li>
-                        <li><a href="#" id="navDocuments"><span class="icon">📄</span>Documents</a></li>
-                        <li><a href="#" id="navTasks"><span class="icon">✅</span>Tasks</a></li>
-                        <li><a href="#" id="navPayments"><span class="icon">💳</span>Payments</a></li>
-                    </ul>
+    <div id="mainApp">
+    <div class="container">
+        <div class="header">
+            <h1>RERA Client Tracker</h1>
+            <p>Comprehensive Client Management System</p>
+            </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('clients')">Client Management</button>
+            <button class="nav-tab" onclick="showSection('addClient')">Add New Client</button>
+            <button class="nav-tab" onclick="showSection('documents')">Document Tracking</button>
+            <button class="nav-tab" onclick="showSection('payments')">Payment Management</button>
+        </div>
+
+        <!-- Client Management Section -->
+        <div id="clients" class="section active">
+            <h2>Client Management</h2>
+            
+            <div class="search-bar">
+                <input type="text" id="clientSearch" placeholder="Search existing clients..." onkeyup="searchClients()">
+            </div>
+
+            <div id="clientsLoading" class="loading" style="display: none;">Loading clients...</div>
+            <div id="clientsError" class="error" style="display: none;"></div>
+            <div id="clientsSuccess" class="success" style="display: none;"></div>
+
+            <div id="clientsList" class="client-list"></div>
+            <div id="clientDetailsPanel" style="display:none; margin-top:20px;"></div>
+        </div>
+
+        <!-- Document Tracking Section -->
+        <div id="documents" class="section">
+            <h2>Document Tracking</h2>
+            
+            <div class="search-bar">
+                <input type="text" id="documentSearch" placeholder="Search clients to view documents..." onkeyup="searchClientsForDocuments()">
+            </div>
+
+            <div id="documentsLoading" class="loading" style="display: none;">Loading documents...</div>
+            <div id="documentsError" class="error" style="display: none;"></div>
+            <div id="documentsSuccess" class="success" style="display: none;"></div>
+
+            <div id="documentsClientInfo" style="display: none;">
+                <h3 id="documentsClientName"></h3>
+                <div class="progress-bar">
+                    <div id="documentsProgress" class="progress" style="width: 0%"></div>
+                </div>
+                <p id="documentsProgressText">0% Complete</p>
+            </div>
+
+            <div id="documentsListContainer">
+                <table id="documentsTable" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left; padding: 10px;">Document Name</th>
+                            <th style="text-align:center; padding: 10px;">Status</th>
+                            <th style="text-align:center; padding: 10px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="documentsList"></tbody>
+                </table>
+            </div>
+
+            <!-- Move Add Document Section below the table -->
+            <div id="addDocumentSection" style="display: none; margin-top: 24px;">
+                <div class="add-document" onclick="showAddDocumentModal()">
+                    <h3>+ Add Custom Document</h3>
+                    <p>Click to add a document not in the standard list</p>
                 </div>
             </div>
-            <div class="sidebar-bottom">
-                <!-- <div class="user-info">
-                    <div class="user-avatar">👤</div>
-                    <div class="user-name" id="sidebarUserName">User Name</div>
-                    <div class="user-email" id="sidebarUserEmail">user@example.com</div>
-                </div> -->
-                <button class="logout-btn" id="logoutBtn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Payment Management Section -->
+        <div id="payments" class="section">
+            <h2>Payment Management</h2>
+            
+            <div class="search-bar">
+                <input type="text" id="paymentSearch" placeholder="Search clients to view payments..." onkeyup="searchClientsForPayments()">
             </div>
-        </nav>
-        <main class="main-content">
-            <!-- Home Section -->
-            <section id="homeSection">
-                <div class="home-cards">
-                    <div class="home-card">
-                        <div class="home-card-icon">👥</div>
-                        <div class="home-card-title">Total Clients</div>
-                        <div class="home-card-value" id="totalClients">0</div>
-                    </div>
-                    <div class="home-card">
-                        <div class="home-card-icon">🪙</div>
-                        <div class="home-card-title">Cumulative Total</div>
-                        <div class="home-card-value" id="cumulativeTotal">₹0</div>
-                    </div>
-                    <div class="home-card">
-                        <div class="home-card-icon">📉</div>
-                        <div class="home-card-title">Total Outstanding</div>
-                        <div class="home-card-value" id="totalOutstanding">₹0</div>
-                    </div>
-                </div>
-                <div class="home-search-row">
-                    <input type="text" id="clientSearchHome" placeholder="Search registered clients...">
-                    <button class="add-client-btn" id="addClientBtn">+ Add New Client</button>
-                </div>
-                <div class="client-list" id="clientListHome">
-                    <!-- Client list items will be injected here -->
-                </div>
-                <div class="client-details-panel" id="clientDetailsPanelHome" style="display:none;">
-                    <!-- Client details will be shown here -->
-                </div>
-            </section>
-            <!-- Other sections (Documents, Tasks, Payments) will be added here later -->
-            <!-- Documents Section -->
-            <section id="documentsSection" style="display:none;">
-                <h2 style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.2em;">📄</span> <span>Document Tracking</span></h2>
-                <div class="home-search-row">
-                    <input type="text" id="documentSearch" placeholder="Search clients to view documents..." style="flex:1;">
-                    <button class="btn btn-success" id="downloadPendingDocsBtn" style="margin-left:16px;">Download Pending Documents (PDF)</button>
-                </div>
-                <div id="documentsClientList" class="client-list"></div>
-            </section>
-            <!-- Documents Modal -->
-            <div id="documentsModal" class="modal" style="display:none;">
-                <div class="modal-content" style="max-width:1000px; min-width:700px;">
-                    <span class="close" onclick="closeDocumentsModal()">&times;</span>
-                    <h2 id="documentsModalClientName"></h2>
-                    <div class="progress-bar">
-                        <div id="documentsModalProgress" class="progress" style="width: 0%"></div>
-                    </div>
-                    <p id="documentsModalProgressText">0% Complete</p>
-                    <div id="documentsModalLoading" class="loading" style="display: none;">Loading documents...</div>
-                    <div id="documentsModalError" class="error" style="display: none;"></div>
-                    <div id="documentsModalSuccess" class="success" style="display: none;"></div>
-                    <div id="documentsModalListContainer">
-                        <table id="documentsModalTable" style="width:100%; border-collapse:collapse; margin-top:16px;">
-                            <thead>
-                                <tr>
-                                    <th style="text-align:left; padding: 10px;">Document Name</th>
-                                    <th style="text-align:center; padding: 10px;">Status</th>
-                                    <th style="text-align:center; padding: 10px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="documentsModalList"></tbody>
-                        </table>
-                    </div>
-                    <div id="addDocumentModalSection" style="margin-top: 24px;">
-                        <div class="add-document" onclick="showAddCustomDocumentForm()">
-                            <h3>+ Add Custom Document</h3>
-                            <p>Click to add a document not in the standard list</p>
-                        </div>
-                        <form id="addCustomDocumentForm" style="display:none; margin-top:12px;">
-                            <input type="text" id="newCustomDocumentName" placeholder="Document Name" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:70%;">
-                            <button type="submit" class="btn btn-success" style="margin-left:10px;">Add</button>
-                            <button type="button" class="btn btn-secondary" style="margin-left:10px;" onclick="hideAddCustomDocumentForm()">Cancel</button>
-                        </form>
-                    </div>
-                </div>
+
+            <div id="paymentsLoading" class="loading" style="display: none;">Loading payments...</div>
+            <div id="paymentsError" class="error" style="display: none;"></div>
+            <div id="paymentsSuccess" class="success" style="display: none;"></div>
+
+            <div id="paymentsClientInfo" style="display: none;">
+                <h3 id="paymentsClientName"></h3>
             </div>
-            <!-- Payments Section -->
-            <section id="paymentsSection" style="display:none;">
-                <h2><span style="font-size:1.2em;vertical-align:middle;">💳</span> Payment Management</h2>
-                <div style="height:18px;"></div>
-                <div class="home-search-row">
-                    <input type="text" id="paymentSearch" placeholder="Search clients to view payments..." style="flex:1;">
-                </div>
-                <div id="paymentsClientList" class="client-list payments-client-list-block"></div>
-                <div id="paymentsLoading" class="loading" style="display: none;">Loading payments...</div>
-                <div id="paymentsError" class="error" style="display: none;"></div>
-                <div id="paymentsSuccess" class="success" style="display: none;"></div>
-                <div id="addPaymentSection" style="display: none;">
-                    <h3>Add New Payment</h3>
-                    <form id="newPaymentForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="paymentAmount">Amount <span class="required">*</span></label>
-                                <input type="number" id="paymentAmount" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="paymentDescription">Description <span class="required">*</span></label>
-                                <input type="text" id="paymentDescription" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="paymentDueDate">Due Date</label>
-                                <input type="date" id="paymentDueDate">
-                            </div>
+
+            <div id="paymentsList"></div>
+
+            <div id="addPaymentSection" style="display: none;">
+                <h3>Add New Payment</h3>
+                <form id="newPaymentForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="paymentAmount">Amount <span class="required">*</span></label>
+                            <input type="number" id="paymentAmount" required>
                         </div>
-                        <button type="submit" class="btn btn-success">Add Payment</button>
-                    </form>
-                </div>
-            </section>
-            <!-- Tasks Section -->
-            <section id="tasksSection" style="display:none;">
-                <h2><span style="font-size:1.2em;vertical-align:middle;">✅</span> Task Management</h2>
-                <div class="home-search-row">
-                    <input type="text" id="taskClientSearch" placeholder="Search clients to assign/view tasks...">
-                </div>
-                <div class="client-list" id="taskClientList"></div>
-            </section>
-            <!-- Task Details Modal -->
-            <div id="taskDetailsModal" class="modal" style="display:none;">
-                <div class="modal-content" style="max-width:600px;">
-                    <span class="close" onclick="closeTaskDetailsModal()">&times;</span>
-                    <h2 style="margin-bottom:18px;">Assigned Tasks</h2>
-                    <div id="taskDetailsModalContent"></div>
-                </div>
+                        <div class="form-group">
+                            <label for="paymentDescription">Description <span class="required">*</span></label>
+                            <input type="text" id="paymentDescription" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentDueDate">Due Date</label>
+                            <input type="date" id="paymentDueDate">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Add Payment</button>
+                </form>
             </div>
-            <!-- Add Task Modal -->
-            <div id="addTaskModal" class="modal" style="display:none;">
-                <div class="modal-content" style="max-width:500px;">
-                    <span class="close" onclick="closeAddTaskModal()">&times;</span>
-                    <h2 style="margin-bottom:18px;">Add New Task</h2>
-                    <form id="addTaskForm">
-                        <div class="form-group">
-                            <label for="taskTitle">Task Title <span class="required">*</span></label>
-                            <input type="text" id="taskTitle" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskService">Service</label>
-                            <input type="text" id="taskService">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskAllocatedMembers">Allocated Members</label>
-                            <input type="text" id="taskAllocatedMembers" placeholder="Comma separated names">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskAssignedMembers">Assigned Members</label>
-                            <input type="text" id="taskAssignedMembers" placeholder="Comma separated names">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskPriority">Priority</label>
-                            <select id="taskPriority">
-                                <option value="">Select Priority</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskDueDate">Date</label>
-                            <input type="date" id="taskDueDate">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskTeam">Team</label>
-                            <input type="text" id="taskTeam">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskClientSource">Client Source</label>
-                            <input type="text" id="taskClientSource">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskStatus">Status</label>
-                            <select id="taskStatus">
-                                <option value="">Select Status</option>
-                                <option value="Pending">Pending</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskGovFees">Government Fees</label>
-                            <input type="number" id="taskGovFees" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskSroFees">SRO Fees</label>
-                            <input type="number" id="taskSroFees" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskBillAmount">Bill Amount</label>
-                            <input type="number" id="taskBillAmount" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskGst">GST</label>
-                            <input type="number" id="taskGst" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskBranch">Branch</label>
-                            <input type="text" id="taskBranch">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskRemark">Remark</label>
-                            <input type="text" id="taskRemark">
-                        </div>
-                        <div class="form-group">
-                            <label for="taskNote">Note</label>
-                            <textarea id="taskNote" rows="2"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskDescription">Description</label>
-                            <textarea id="taskDescription" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Add Task</button>
-                    </form>
-                </div>
-            </div>
-        </main>
-    </div>
-    <!-- Add Client Modal -->
-    <div id="addClientModal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width:600px;">
-            <span class="close" onclick="closeAddClientModal()">&times;</span>
-            <h2 style="margin-bottom:18px;">Add New Client</h2>
+        </div>
+
+        <!-- Add New Client Section -->
+        <div id="addClient" class="section">
+            <h2><span style="color:#3b5bdb; background:white; border-radius:4px; padding:2px 8px; font-size:1.2em; font-weight:700;">Add New Client</span></h2>
             <form id="addNewClientForm">
                 <div class="form-grid">
                     <div class="form-group">
@@ -1262,7 +647,7 @@
                         <input type="number" id="bookedUnits">
                     </div>
                     <div class="form-group">
-                        <label for="workStatus">Work Status<span class="required"> *</label>
+                        <label for="workStatus">Work Status</label>
                         <select id="workStatus">
                             <option value="">Select Status</option>
                             <option value="Not Started">Not Started</option>
@@ -1319,20 +704,29 @@
                         <input type="date" id="completionDate">
                     </div>
                 </div>
-                <button type="submit" class="add-client-btn" style="margin-top:18px;">Save Client</button>
-                <button type="button" class="add-client-btn" style="background:#718096;margin-top:18px;" onclick="resetClientForm()">Reset Form</button>
+                <button type="submit" class="btn btn-success">Save Client</button>
+                <button type="button" class="btn btn-secondary" onclick="resetClientForm()">Reset Form</button>
             </form>
         </div>
     </div>
-    <!-- Client Details Modal -->
-    <div id="clientDetailsModal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width:500px;">
-            <span class="close" onclick="closeClientDetailsModal()">&times;</span>
-            <h2 style="margin-bottom:18px;">Client Details</h2>
-            <div id="clientDetailsModalContent"></div>
+
+    <!-- Add Document Modal -->
+    <div id="addDocumentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddDocumentModal()">&times;</span>
+            <h2>Add Custom Document</h2>
+            <form id="addDocumentForm">
+                <div class="form-group">
+                    <label for="newDocumentName">Document Name <span class="required">*</span></label>
+                    <input type="text" id="newDocumentName" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Document</button>
+            </form>
         </div>
     </div>
-    <div id="recordPaymentModal" class="modal" style="display:none;">
+
+    <!-- Record Payment Modal -->
+    <div id="recordPaymentModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeRecordPaymentModal()">&times;</span>
             <h2>Record Payment</h2>
@@ -1353,36 +747,8 @@
             </form>
         </div>
     </div>
-    <!-- Payment Details Modal -->
-    <div id="paymentDetailsModal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width:700px;">
-            <span class="close" onclick="closePaymentDetailsModal()">&times;</span>
-            <h2 style="margin-bottom:18px;">Payments</h2>
-            <div id="paymentDetailsModalContent"></div>
-        </div>
     </div>
-    <!-- Add Payment Modal -->
-    <div id="addPaymentModal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width:500px;">
-            <span class="close" onclick="closeAddPaymentModal()">&times;</span>
-            <h2 style="margin-bottom:18px;">Add New Payment</h2>
-            <form id="addPaymentFormModal">
-                <div class="form-group">
-                    <label for="paymentAmountModal">Amount <span class="required">*</span></label>
-                    <input type="number" id="paymentAmountModal" required>
-                </div>
-                <div class="form-group">
-                    <label for="paymentDescriptionModal">Description <span class="required">*</span></label>
-                    <input type="text" id="paymentDescriptionModal" required>
-                </div>
-                <div class="form-group">
-                    <label for="paymentDueDateModal">Due Date</label>
-                    <input type="date" id="paymentDueDateModal">
-                </div>
-                <button type="submit" class="btn btn-success">Add Payment</button>
-            </form>
-        </div>
-    </div>
+    <button id="logoutBtn" class="btn btn-danger" style="position:fixed;top:20px;right:20px;z-index:2000;display:none;" onclick="logout()">Logout</button>
     <script>
         // Global variables
         let currentClientId = null;
@@ -1391,67 +757,63 @@
 
         // DOM Ready
         document.addEventListener('DOMContentLoaded', function() {
-            // Add Client button opens modal
-            var addClientBtn = document.getElementById('addClientBtn');
-            if (addClientBtn) {
-                addClientBtn.onclick = function() {
-                    document.getElementById('addClientModal').style.display = 'block';
-                };
-            }
-            // Modal close logic
-            window.closeAddClientModal = function() {
-                document.getElementById('addClientModal').style.display = 'none';
-                document.getElementById('addNewClientForm').reset();
-                editingClientId = null;
-            };
-            // Add New Client form submission
-            document.getElementById('addNewClientForm').addEventListener('submit', saveClient);
-            // Load initial client list into Home section
-            loadClientsHome();
-            // Search bar logic
-            document.getElementById('clientSearchHome').addEventListener('keyup', function() {
-                searchClientsHome();
-            });
-            // Add Payment form submission
-            var newPaymentForm = document.getElementById('newPaymentForm');
-            if (newPaymentForm) {
-                newPaymentForm.addEventListener('submit', addPayment);
-            }
-            // Record Payment modal form submission
-            var recordPaymentForm = document.getElementById('recordPaymentForm');
-            if (recordPaymentForm) {
-                recordPaymentForm.addEventListener('submit', recordPayment);
-            }
+            // Initialize forms
+            document.getElementById('addDocumentForm').addEventListener('submit', addCustomDocument);
+            document.getElementById('newPaymentForm').addEventListener('submit', addPayment);
+            document.getElementById('recordPaymentForm').addEventListener('submit', recordPayment);
+            document.getElementById('addNewClientForm').addEventListener('submit', saveClient); // New client form submission
+
+            // Load initial data
+            loadClients();
         });
 
         // Section Navigation
         function showSection(sectionId) {
             // Hide all sections
-            document.querySelectorAll('.main-content > section').forEach(section => {
-                section.style.display = 'none';
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
             });
+
+            // Deactivate all nav buttons
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
             // Show selected section
-            document.getElementById(sectionId).style.display = 'block';
+            document.getElementById(sectionId).classList.add('active');
+
+            // Activate selected nav button
+            document.querySelector(`.nav-tab[onclick="showSection('${sectionId}')"]`).classList.add('active');
+
+            // Load data for the section if needed
+            if (sectionId === 'documents' && currentClientId) {
+                loadDocuments(currentClientId);
+            } else if (sectionId === 'payments' && currentClientId) {
+                loadPayments(currentClientId);
+            }
+            // No extra logic needed for addClient
+
+            // Clear payment list and hide summary when switching to payments tab
+            if (sectionId === 'payments') {
+                document.getElementById('paymentsList').innerHTML = '';
+                document.getElementById('paymentsList').style.display = 'none';
+                document.getElementById('paymentsClientInfo').style.display = 'none';
+                document.getElementById('addPaymentSection').style.display = 'none';
+            }
         }
 
         // Client Management Functions
         function loadClients() {
             const loadingDiv = document.getElementById('clientsLoading');
             const errorDiv = document.getElementById('clientsError');
-            const clientsList = document.getElementById('clientListHome');
+            const clientsList = document.getElementById('clientsList');
 
             loadingDiv.style.display = 'block';
             errorDiv.style.display = 'none';
             clientsList.innerHTML = '';
 
-            fetch('/api/clients')
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch('http://localhost:5000/api/clients')
+                .then(response => response.json())
                 .then(data => {
                     loadingDiv.style.display = 'none';
                     if (data.error) {
@@ -1460,8 +822,8 @@
                         return;
                     }
 
-                    if (!Array.isArray(data)) {
-                        // Show error message
+                    if (data.length === 0) {
+                        clientsList.innerHTML = '<p>No clients found. Add a new client using the form below.</p>';
                         return;
                     }
 
@@ -1511,14 +873,8 @@
             errorDiv.style.display = 'none';
             clientsList.innerHTML = '';
 
-            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/search/clients?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
                 .then(data => {
                     loadingDiv.style.display = 'none';
                     if (data.error) {
@@ -1565,12 +921,21 @@
             currentClientId = clientId;
             
             // Show documents section and load documents
-            showSection('documentsSection');
+            showSection('documents');
             loadDocuments(currentClientId);
         }
 
         function saveClient(e) {
             e.preventDefault();
+
+            const loadingDiv = document.getElementById('clientsLoading');
+            const errorDiv = document.getElementById('clientsError');
+            const successDiv = document.getElementById('clientsSuccess');
+
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
             const clientData = {
                 type: document.getElementById('clientType').value,
                 name: document.getElementById('clientName').value,
@@ -1594,66 +959,77 @@
                 reference: document.getElementById('reference').value,
                 completionDate: document.getElementById('completionDate').value
             };
+
             if (editingClientId) {
-                // Edit mode: update existing client
-                fetch(`/api/clients/${editingClientId}`, {
+                // Update existing client
+                fetch(`http://localhost:5000/api/clients/${editingClientId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(clientData)
                 })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
+                    loadingDiv.style.display = 'none';
                     if (data.error) {
-                        alert('Error: ' + data.error);
+                        errorDiv.textContent = data.error;
+                        errorDiv.style.display = 'block';
                         return;
                     }
-                    alert('Client updated successfully!');
-                    document.getElementById('addClientModal').style.display = 'none';
-                    document.getElementById('addNewClientForm').reset();
+
+                    successDiv.textContent = 'Client updated successfully!';
+                    successDiv.style.display = 'block';
+                    resetClientForm();
+                    loadClients();
                     editingClientId = null;
-                    loadClientsHome();
+                    // Restore Save button
+                    const saveBtn = document.querySelector('#addNewClientForm button[type="submit"]');
+                    saveBtn.textContent = 'Save Client';
+                    // Optionally switch to Client Management tab
+                    showSection('clients');
                 })
                 .catch(error => {
-                    alert('Failed to update client. Please try again.');
+                    loadingDiv.style.display = 'none';
+                    errorDiv.textContent = 'Failed to update client. Please try again.';
+                    errorDiv.style.display = 'block';
+                    console.error('Error updating client:', error);
                 });
-            } else {
-                // Create mode: add new client
-                fetch('/api/clients', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(clientData)
-                })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        alert('Error: ' + data.error);
-                        return;
-                    }
-                    alert('Client saved successfully!');
-                    document.getElementById('addClientModal').style.display = 'none';
-                    document.getElementById('addNewClientForm').reset();
-                    loadClientsHome();
-                })
-                .catch(error => {
-                    alert('Failed to save client. Please try again.');
-                });
+                return;
             }
+
+            fetch('http://localhost:5000/api/clients', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clientData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingDiv.style.display = 'none';
+                if (data.error) {
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                successDiv.textContent = 'Client saved successfully!';
+                successDiv.style.display = 'block';
+                resetClientForm();
+                loadClients();
+
+                // Select the newly created client
+                currentClientId = data._id;
+                showSection('documents');
+                loadDocuments(currentClientId);
+            })
+            .catch(error => {
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = 'Failed to save client. Please try again.';
+                errorDiv.style.display = 'block';
+                console.error('Error saving client:', error);
+            });
         }
 
         function resetClientForm() {
@@ -1674,14 +1050,8 @@
                 return;
             }
 
-            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/search/clients?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         document.getElementById('documentsError').textContent = data.error;
@@ -1752,14 +1122,8 @@
             addDocumentSection.style.display = 'none';
 
             // First get client info
-            fetch(`/api/clients/${clientId}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/clients/${clientId}`)
+                .then(response => response.json())
                 .then(clientData => {
                     if (clientData.error) {
                         throw new Error(clientData.error);
@@ -1771,15 +1135,9 @@
                     addDocumentSection.style.display = 'block';
 
                     // Then get documents
-                    return fetch(`/api/documents/${clientId}`);
+                    return fetch(`http://localhost:5000/api/documents/${clientId}`);
                 })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     loadingDiv.style.display = 'none';
                     if (data.error) {
@@ -1809,13 +1167,13 @@
                         let actionCell = '';
                         let isCustom = data.customDocuments && data.customDocuments.includes(docName);
                         if (status === 'received') {
-                            statusCell = `<span class="status-badge received">Received</span>`;
+                            statusCell = `<span class="received-badge">Received</span>`;
                             actionCell = `<button class="btn btn-danger" onclick="updateDocumentStatus('${docName}', 'not-received')">Mark as Not Received</button>`;
                             if (isCustom) {
                                 actionCell += ` <button class="btn btn-danger" style="margin-left:8px;" onclick="deleteCustomDocument('${docName}')">Delete</button>`;
                             }
                         } else {
-                            statusCell = `<span class="status-badge not-received">Not Received</span>`;
+                            statusCell = `<span class="status-btn not-received">Not Received</span>`;
                             actionCell = `<button class="btn btn-success" onclick="updateDocumentStatus('${docName}', 'received')">Mark as Received</button>`;
                             if (isCustom) {
                                 actionCell += ` <button class="btn btn-danger" style="margin-left:8px;" onclick="deleteCustomDocument('${docName}')">Delete</button>`;
@@ -1848,20 +1206,14 @@
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
 
-            fetch(`/api/documents/${currentClientId}`, {
+            fetch(`http://localhost:5000/api/documents/${currentClientId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ documentName, status })
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 loadingDiv.style.display = 'none';
                 if (data.error) {
@@ -1879,10 +1231,10 @@
                     if (row.firstElementChild.textContent === documentName) {
                         // Update status and action cells
                         if (status === 'received') {
-                            row.children[1].innerHTML = `<span class="status-badge received">Received</span>`;
+                            row.children[1].innerHTML = '<span class="received-badge">Received</span>';
                             row.children[2].innerHTML = `<button class="btn btn-danger" onclick="updateDocumentStatus('${documentName}', 'not-received')">Mark as Not Received</button>`;
                         } else {
-                            row.children[1].innerHTML = `<span class="status-badge not-received">Not Received</span>`;
+                            row.children[1].innerHTML = '<span class="status-btn not-received">Not Received</span>';
                             row.children[2].innerHTML = `<button class="btn btn-success" onclick="updateDocumentStatus('${documentName}', 'received')">Mark as Received</button>`;
                         }
                     }
@@ -1938,20 +1290,14 @@
             loadingDiv.style.display = 'block';
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
-            fetch(`/api/documents/${currentClientId}/add`, {
+            fetch(`http://localhost:5000/api/documents/${currentClientId}/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ documentName: newDocumentName })
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 loadingDiv.style.display = 'none';
                 if (data.error) {
@@ -1988,20 +1334,14 @@
             loadingDiv.style.display = 'block';
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
-            fetch(`/api/documents/${currentClientId}/delete`, {
+            fetch(`http://localhost:5000/api/documents/${currentClientId}/delete`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ documentName })
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 loadingDiv.style.display = 'none';
                 if (data.error) {
@@ -2027,14 +1367,8 @@
             if (query.length < 2) {
                 return;
             }
-            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/search/clients?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         document.getElementById('paymentsError').textContent = data.error;
@@ -2046,7 +1380,7 @@
                         document.getElementById('paymentsError').style.display = 'block';
                         return;
                     }
-                    // Always remove any previous search result list before rendering a new one
+                    // Remove any previous client list
                     const oldList = document.getElementById('paymentsClientSearchResults');
                     if (oldList) oldList.remove();
 
@@ -2055,28 +1389,26 @@
                     clientsList.className = 'client-list';
                     clientsList.id = 'paymentsClientSearchResults';
                     data.forEach(client => {
-                        const item = document.createElement('div');
-                        item.className = 'client-list-item';
-                        // Name section
-                        const nameDiv = document.createElement('div');
-                        nameDiv.className = 'client-list-name';
-                        nameDiv.textContent = client.name;
-                        // Actions section
-                        const actionsDiv = document.createElement('div');
-                        actionsDiv.className = 'client-list-actions';
-                        // View button
-                        const viewBtn = document.createElement('button');
-                        viewBtn.className = 'client-list-action-btn';
-                        viewBtn.title = 'View Payments';
-                        viewBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                        viewBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            showPaymentDetailsModal(client);
-                        };
-                        actionsDiv.appendChild(viewBtn);
-                        item.appendChild(nameDiv);
-                        item.appendChild(actionsDiv);
-                        clientsList.appendChild(item);
+                        const clientCard = document.createElement('div');
+                        clientCard.className = 'client-card';
+                        clientCard.innerHTML = `
+                            <div class="client-name">${client.name}</div>
+                            <div class="client-type">${client.type}</div>
+                            <div class="client-info">
+                                <div>Location: ${client.location || 'N/A'}</div>
+                                <div>Mobile: ${client.mobile || 'N/A'}</div>
+                            </div>
+                        `;
+                        clientCard.addEventListener('click', () => {
+                            currentClientId = client._id;
+                            document.getElementById('paymentsClientName').textContent = client.name;
+                            document.getElementById('paymentsClientInfo').style.display = 'block';
+                            document.getElementById('addPaymentSection').style.display = 'block';
+                            loadPayments(currentClientId);
+                            // Remove the client list after selection
+                            clientsList.remove();
+                        });
+                        clientsList.appendChild(clientCard);
                     });
                     // Insert the list below the search bar
                     const searchBar = document.getElementById('paymentSearch').parentNode;
@@ -2099,14 +1431,8 @@
             successDiv.style.display = 'none';
             paymentsList.innerHTML = '';
             document.getElementById('paymentsList').style.display = 'none';
-            fetch(`/api/payments/${clientId}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/payments/${clientId}`)
+                .then(response => response.json())
                 .then(data => {
                     loadingDiv.style.display = 'none';
                     if (data.error) {
@@ -2147,12 +1473,11 @@
                                     <span>Status: <b>${status}</b></span>
                                     <span>Received: ₹${payment.paidAmount || 0}</span>
                                     <span>Remaining: ₹${remaining}</span>
+                                    <button class="btn btn-success" onclick="showRecordPaymentModal('${payment._id}', ${remaining})" ${status==='Received'?'disabled':''}>Record Payment</button>
                                 </div>
                             </div>
                             <div>Date: ${payment.dueDate ? payment.dueDate : 'N/A'}</div>
                             <div>Transactions: ${payment.transactions && payment.transactions.length > 0 ? payment.transactions.map(t => `<div>₹${t.amount} on ${t.date ? new Date(t.date).toLocaleDateString() : ''} (${t.notes || ''})</div>`).join('') : 'None'}</div>
-                            <button class="btn btn-success record-payment-btn-modal" onclick="showRecordPaymentModal('${payment._id}', ${remaining})" ${status==='Received'?'disabled':''}>Record Payment</button>
-                            <div style="margin-top:10px;">${actionButtons}</div>
                         `;
                         paymentsList.appendChild(paymentItem);
                     });
@@ -2167,90 +1492,94 @@
 
         function addPayment(e) {
             e.preventDefault();
+            const loadingDiv = document.getElementById('paymentsLoading');
+            const errorDiv = document.getElementById('paymentsError');
+            const successDiv = document.getElementById('paymentsSuccess');
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
             const paymentData = {
                 clientId: currentClientId,
                 amount: document.getElementById('paymentAmount').value,
                 description: document.getElementById('paymentDescription').value,
                 dueDate: document.getElementById('paymentDueDate').value
             };
-            fetch('/api/payments', {
+            fetch('http://localhost:5000/api/payments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(paymentData)
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
+                loadingDiv.style.display = 'none';
                 if (data.error) {
-                    alert('Error: ' + data.error);
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
                     return;
                 }
-                alert('Payment added!');
+                successDiv.textContent = 'Payment added!';
+                successDiv.style.display = 'block';
                 document.getElementById('newPaymentForm').reset();
-                // loadPayments(currentClientId);
+                loadPayments(currentClientId);
             })
             .catch(error => {
-                alert('Failed to add payment. Please try again.');
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = 'Failed to add payment. Please try again.';
+                errorDiv.style.display = 'block';
+                console.error('Error adding payment:', error);
             });
         }
 
-        // Show Record Payment Modal
         function showRecordPaymentModal(paymentId, maxAmount) {
-            window.currentPaymentId = paymentId;
-            var recordAmountInput = document.getElementById('recordAmount');
-            if (recordAmountInput) {
-                recordAmountInput.value = maxAmount;
-                recordAmountInput.max = maxAmount;
-            } else {
-                console.warn('recordAmount input not found in DOM');
-            }
+            currentPaymentId = paymentId;
+            document.getElementById('recordAmount').value = maxAmount;
+            document.getElementById('recordAmount').max = maxAmount;
             document.getElementById('recordPaymentModal').style.display = 'block';
         }
-        // Close Record Payment Modal
         function closeRecordPaymentModal() {
             document.getElementById('recordPaymentModal').style.display = 'none';
             document.getElementById('recordPaymentForm').reset();
         }
-        // Record Payment logic
         function recordPayment(e) {
             e.preventDefault();
+            const loadingDiv = document.getElementById('paymentsLoading');
+            const errorDiv = document.getElementById('paymentsError');
+            const successDiv = document.getElementById('paymentsSuccess');
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
             const paymentData = {
                 amount: Number(document.getElementById('recordAmount').value),
                 date: document.getElementById('recordDate').value,
                 notes: document.getElementById('recordNotes').value
             };
-            fetch(`/api/payments/${window.currentPaymentId}/record`, {
+            fetch(`http://localhost:5000/api/payments/${currentPaymentId}/record`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(paymentData)
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
+                loadingDiv.style.display = 'none';
                 if (data.error) {
-                    alert('Error: ' + data.error);
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
                     return;
                 }
-                alert('Payment recorded!');
+                successDiv.textContent = 'Payment recorded!';
+                successDiv.style.display = 'block';
                 closeRecordPaymentModal();
-                // loadPayments(currentClientId);
+                loadPayments(currentClientId);
             })
             .catch(error => {
-                alert('Failed to record payment. Please try again.');
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = 'Failed to record payment. Please try again.';
+                errorDiv.style.display = 'block';
+                console.error('Error recording payment:', error);
             });
         }
 
@@ -2258,64 +1587,42 @@
         window.onclick = function(event) {
             const addDocModal = document.getElementById('addDocumentModal');
             const recPayModal = document.getElementById('recordPaymentModal');
-            const clientDetailsModal = document.getElementById('clientDetailsModal');
             if (event.target === addDocModal) {
                 closeAddDocumentModal();
             }
             if (event.target === recPayModal) {
                 closeRecordPaymentModal();
             }
-            if (event.target === clientDetailsModal) {
-                closeClientDetailsModal();
-            }
         }
 
         // Add the deleteClient function to JS:
         function deleteClient(clientId) {
-            if (!confirm('Are you sure you want to delete this client? This will remove all related documents, payments, and tasks.')) return;
+            if (!confirm('Are you sure you want to delete this client?')) return;
             const loadingDiv = document.getElementById('clientsLoading');
             const errorDiv = document.getElementById('clientsError');
             const successDiv = document.getElementById('clientsSuccess');
-            if (loadingDiv) loadingDiv.style.display = 'block';
-            if (errorDiv) errorDiv.style.display = 'none';
-            if (successDiv) successDiv.style.display = 'none';
-            fetch(`/api/clients/${clientId}`, {
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            fetch(`http://localhost:5000/api/clients/${clientId}`, {
                 method: 'DELETE',
             })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                if (loadingDiv) loadingDiv.style.display = 'none';
+                loadingDiv.style.display = 'none';
                 if (data.error) {
-                    if (errorDiv) {
-                        errorDiv.textContent = data.error;
-                        errorDiv.style.display = 'block';
-                    } else {
-                        alert('Error: ' + data.error);
-                    }
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
                     return;
                 }
-                if (successDiv) {
-                    successDiv.textContent = 'Client deleted successfully!';
-                    successDiv.style.display = 'block';
-                } else {
-                    alert('Client deleted successfully!');
-                }
-                loadClientsHome();
+                successDiv.textContent = 'Client deleted successfully!';
+                successDiv.style.display = 'block';
+                loadClients();
             })
             .catch(error => {
-                if (loadingDiv) loadingDiv.style.display = 'none';
-                if (errorDiv) {
-                    errorDiv.textContent = 'Failed to delete client. Please try again.';
-                    errorDiv.style.display = 'block';
-                } else {
-                    alert('Failed to delete client. Please try again.');
-                }
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = 'Failed to delete client. Please try again.';
+                errorDiv.style.display = 'block';
                 console.error('Error deleting client:', error);
             });
         }
@@ -2323,14 +1630,8 @@
         // Add editClient logic and update form handling
         function editClient(event, clientId) {
             event.stopPropagation();
-            fetch(`/api/clients/${clientId}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/clients/${clientId}`)
+                .then(response => response.json())
                 .then(client => {
                     // Switch to Add New Client tab
                     showSection('addClient');
@@ -2369,17 +1670,11 @@
         }
 
         function showClientDetails(clientId) {
-            const panel = document.getElementById('clientDetailsPanelHome');
+            const panel = document.getElementById('clientDetailsPanel');
             panel.style.display = 'block';
             panel.innerHTML = '<div class="loading">Loading client details...</div>';
-            fetch(`/api/clients/${clientId}`)
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
+            fetch(`http://localhost:5000/api/clients/${clientId}`)
+                .then(response => response.json())
                 .then(client => {
                     let html = `<div style="background:#f7fafc; border:2px solid #e2e8f0; border-radius:15px; padding:24px; margin-bottom:20px;">
                 <h3 style="margin-bottom:10px;">${client.name}</h3>
@@ -2412,243 +1707,6 @@
                 });
         }
 
-        // Load clients into Home section
-        function loadClientsHome() {
-            const clientsList = document.getElementById('clientListHome');
-            clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients', { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    clientsList.innerHTML = '';
-                    if (!data || data.length === 0) {
-                        clientsList.innerHTML = '<p style="padding:24px;">No clients found. Add a new client using the button above.</p>';
-                        document.getElementById('totalClients').textContent = '0';
-                        return;
-                    }
-                    document.getElementById('totalClients').textContent = data.length;
-                    data.forEach(client => {
-                        const item = document.createElement('div');
-                        item.className = 'client-list-item';
-                        // Name section
-                        const nameDiv = document.createElement('div');
-                        nameDiv.className = 'client-list-name';
-                        nameDiv.textContent = client.name + (client.location ? ' - ' + client.location : '');
-                        // Actions section
-                        const actionsDiv = document.createElement('div');
-                        actionsDiv.className = 'client-list-actions';
-                        // View button
-                        const viewBtn = document.createElement('button');
-                        viewBtn.className = 'client-list-action-btn';
-                        viewBtn.title = 'View Details';
-                        viewBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                        viewBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            showClientDetailsModal(client._id);
-                        };
-                        // Edit button
-                        const editBtn = document.createElement('button');
-                        editBtn.className = 'client-list-action-btn';
-                        editBtn.title = 'Edit Client';
-                        editBtn.innerHTML = '✏️';
-                        editBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            editClientHome(client._id);
-                        };
-                        // Delete button
-                        const deleteBtn = document.createElement('button');
-                        deleteBtn.className = 'client-list-action-btn';
-                        deleteBtn.title = 'Delete Client';
-                        deleteBtn.innerHTML = '🗑️';
-                        deleteBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            deleteClient(client._id);
-                        };
-                        actionsDiv.appendChild(viewBtn);
-                        actionsDiv.appendChild(editBtn);
-                        actionsDiv.appendChild(deleteBtn);
-                        item.appendChild(nameDiv);
-                        item.appendChild(actionsDiv);
-                        
-                        clientsList.appendChild(item);
-                    });
-                })
-                .catch((err) => {
-                    console.error('Error loading clients:', err);
-                    clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
-                });
-        }
-
-        // Search clients in Home section
-        function searchClientsHome() {
-            const query = document.getElementById('clientSearchHome').value.trim();
-            const clientsList = document.getElementById('clientListHome');
-            if (query.length < 2) {
-                loadClientsHome();
-                return;
-            }
-            clientsList.innerHTML = '<div class="loading">Searching...</div>';
-            fetch(`/api/search/clients?q=${encodeURIComponent(query)}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    clientsList.innerHTML = '';
-                    if (!data || data.length === 0) {
-                        clientsList.innerHTML = '<p style="padding:24px;">No matching clients found.</p>';
-                        return;
-                    }
-                    data.forEach(client => {
-                        const item = document.createElement('div');
-                        item.className = 'client-list-item';
-                        // Name section
-                        const nameDiv = document.createElement('div');
-                        nameDiv.className = 'client-list-name';
-                        nameDiv.textContent = client.name + (client.location ? ' - ' + client.location : '');
-                        // Actions section
-                        const actionsDiv = document.createElement('div');
-                        actionsDiv.className = 'client-list-actions';
-                        // View button
-                        const viewBtn = document.createElement('button');
-                        viewBtn.className = 'client-list-action-btn';
-                        viewBtn.title = 'View Details';
-                        viewBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                        viewBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            showClientDetailsModal(client._id);
-                        };
-                        // Edit button
-                        const editBtn = document.createElement('button');
-                        editBtn.className = 'client-list-action-btn';
-                        editBtn.title = 'Edit Client';
-                        editBtn.innerHTML = '✏️';
-                        editBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            editClientHome(client._id);
-                        };
-                        // Delete button
-                        const deleteBtn = document.createElement('button');
-                        deleteBtn.className = 'client-list-action-btn';
-                        deleteBtn.title = 'Delete Client';
-                        deleteBtn.innerHTML = '🗑️';
-                        deleteBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            deleteClient(client._id);
-                        };
-                        actionsDiv.appendChild(viewBtn);
-                        actionsDiv.appendChild(editBtn);
-                        actionsDiv.appendChild(deleteBtn);
-                        item.appendChild(nameDiv);
-                        item.appendChild(actionsDiv);
-                        // Clicking the row also views details
-                        item.addEventListener('click', function() {
-                            showClientDetailsHome(client._id);
-                            document.querySelectorAll('.client-list-item').forEach(el => el.classList.remove('selected'));
-                            item.classList.add('selected');
-                        });
-                        clientsList.appendChild(item);
-                    });
-                })
-                .catch((err) => {
-                    console.error('Error searching clients:', err);
-                    clientsList.innerHTML = '<div class="error">Failed to search clients.</div>';
-                });
-        }
-
-        // Edit client from Home section
-        function editClientHome(clientId) {
-            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(client => {
-                    document.getElementById('addClientModal').style.display = 'block';
-                    document.getElementById('clientType').value = client.type || '';
-                    document.getElementById('clientName').value = client.name || '';
-                    document.getElementById('promoterName').value = client.promoterName || '';
-                    document.getElementById('location').value = client.location || '';
-                    document.getElementById('plotNo').value = client.plotNo || '';
-                    document.getElementById('plotArea').value = client.plotArea || '';
-                    document.getElementById('totalUnits').value = client.totalUnits || '';
-                    document.getElementById('bookedUnits').value = client.bookedUnits || '';
-                    document.getElementById('workStatus').value = client.workStatus || '';
-                    document.getElementById('userId').value = client.userId || '';
-                    document.getElementById('password').value = client.password || '';
-                    document.getElementById('reraNumber').value = client.reraNumber || '';
-                    document.getElementById('certificateDate').value = client.certificateDate ? client.certificateDate.substr(0,10) : '';
-                    document.getElementById('mobile').value = client.mobile || '';
-                    document.getElementById('officeNumber').value = client.officeNumber || '';
-                    document.getElementById('email').value = client.email || '';
-                    document.getElementById('caName').value = client.caName || '';
-                    document.getElementById('engineerName').value = client.engineerName || '';
-                    document.getElementById('architectName').value = client.architectName || '';
-                    document.getElementById('reference').value = client.reference || '';
-                    document.getElementById('completionDate').value = client.completionDate ? client.completionDate.substr(0,10) : '';
-                    editingClientId = client._id;
-                })
-                .catch(() => {
-                    alert('Failed to load client for editing.');
-                });
-        }
-
-        // Show client details in Home section
-        function showClientDetailsHome(clientId) {
-            console.log('showClientDetailsHome called with:', clientId);
-            const panel = document.getElementById('clientDetailsPanelHome');
-            panel.style.display = 'block';
-            panel.innerHTML = '<div class="loading">Loading client details...</div>';
-            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(client => {
-                    let html = `<div style="font-size:1.1em;line-height:1.7;">
-                        <b>Name:</b> ${client.name || 'N/A'}<br>
-                        <b>Type:</b> ${client.type || 'N/A'}<br>
-                        <b>Promoter Name:</b> ${client.promoterName || 'N/A'}<br>
-                        <b>Location:</b> ${client.location || 'N/A'}<br>
-                        <b>Plot No:</b> ${client.plotNo || 'N/A'}<br>
-                        <b>Plot Area:</b> ${client.plotArea || 'N/A'}<br>
-                        <b>Total Units:</b> ${client.totalUnits || 'N/A'}<br>
-                        <b>Booked Units:</b> ${client.bookedUnits || 'N/A'}<br>
-                        <b>Work Status:</b> ${client.workStatus || 'N/A'}<br>
-                        <b>User ID:</b> ${client.userId || 'N/A'}<br>
-                        <b>Password:</b> ${client.password || 'N/A'}<br>
-                        <b>RERA Number:</b> ${client.reraNumber || 'N/A'}<br>
-                        <b>Certificate Date:</b> ${client.certificateDate ? client.certificateDate.substr(0,10) : 'N/A'}<br>
-                        <b>Mobile:</b> ${client.mobile || 'N/A'}<br>
-                        <b>Office Number:</b> ${client.officeNumber || 'N/A'}<br>
-                        <b>Email:</b> ${client.email || 'N/A'}<br>
-                        <b>CA Name:</b> ${client.caName || 'N/A'}<br>
-                        <b>Engineer Name:</b> ${client.engineerName || 'N/A'}<br>
-                        <b>Architect Name:</b> ${client.architectName || 'N/A'}<br>
-                        <b>Reference:</b> ${client.reference || 'N/A'}<br>
-                        <b>Completion Date:</b> ${client.completionDate ? client.completionDate.substr(0,10) : 'N/A'}<br>
-                    </div>`;
-                    panel.innerHTML = html;
-                })
-                .catch(() => {
-                    panel.innerHTML = '<div class="error">Failed to load client details.</div>';
-                });
-        }
-
         // --- Auth Logic ---
         function showLogin() {
             document.getElementById('authTitle').textContent = 'Login';
@@ -2665,30 +1723,20 @@
             document.getElementById('authError').style.display = 'none';
         }
         function showAuthModal() {
-            var modal = document.getElementById('authModal');
-            if (modal) modal.style.display = 'block';
-            var mainApp = document.getElementById('mainApp');
-            if (mainApp) mainApp.style.display = 'none';
-            var logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) logoutBtn.style.display = 'none';
-            var hamburger = document.getElementById('hamburgerMenu');
-            if (hamburger) hamburger.style.display = 'none';
+            document.getElementById('authModal').style.display = 'block';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
         }
         function hideAuthModal() {
-            var authModal = document.getElementById('authModal');
-            if (authModal) authModal.style.display = 'none';
-            var mainApp = document.getElementById('mainApp');
-            if (mainApp) mainApp.style.display = 'block';
-            var logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) logoutBtn.style.display = 'block';
-            var hamburger = document.getElementById('hamburgerMenu');
-            if (hamburger) hamburger.style.display = 'flex';
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'block';
         }
         function login(e) {
             e.preventDefault();
             const userId = document.getElementById('authUserId').value.trim();
             const password = document.getElementById('authPassword').value;
-            fetch('/api/login', {
+            fetch('http://localhost:5000/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId, password })
@@ -2713,7 +1761,7 @@
             e.preventDefault();
             const userId = document.getElementById('authUserId').value.trim();
             const password = document.getElementById('authPassword').value;
-            fetch('/api/register', {
+            fetch('http://localhost:5000/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId, password })
@@ -2760,1358 +1808,6 @@
                 hideAuthModal();
             }
         });
-        // Show client details in popup modal
-        function showClientDetailsModal(clientId) {
-            const modal = document.getElementById('clientDetailsModal');
-            const content = document.getElementById('clientDetailsModalContent');
-            modal.style.display = 'block';
-            content.innerHTML = '<div class="loading">Loading client details...</div>';
-            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(client => {
-                    let html = `<div style="font-size:1.1em;line-height:1.7;">
-                        <b>Name:</b> ${client.name || 'N/A'}<br>
-                        <b>Type:</b> ${client.type || 'N/A'}<br>
-                        <b>Promoter Name:</b> ${client.promoterName || 'N/A'}<br>
-                        <b>Location:</b> ${client.location || 'N/A'}<br>
-                        <b>Plot No:</b> ${client.plotNo || 'N/A'}<br>
-                        <b>Plot Area:</b> ${client.plotArea || 'N/A'}<br>
-                        <b>Total Units:</b> ${client.totalUnits || 'N/A'}<br>
-                        <b>Booked Units:</b> ${client.bookedUnits || 'N/A'}<br>
-                        <b>Work Status:</b> ${client.workStatus || 'N/A'}<br>
-                        <b>User ID:</b> ${client.userId || 'N/A'}<br>
-                        <b>Password:</b> ${client.password || 'N/A'}<br>
-                        <b>RERA Number:</b> ${client.reraNumber || 'N/A'}<br>
-                        <b>Certificate Date:</b> ${client.certificateDate ? client.certificateDate.substr(0,10) : 'N/A'}<br>
-                        <b>Mobile:</b> ${client.mobile || 'N/A'}<br>
-                        <b>Office Number:</b> ${client.officeNumber || 'N/A'}<br>
-                        <b>Email:</b> ${client.email || 'N/A'}<br>
-                        <b>CA Name:</b> ${client.caName || 'N/A'}<br>
-                        <b>Engineer Name:</b> ${client.engineerName || 'N/A'}<br>
-                        <b>Architect Name:</b> ${client.architectName || 'N/A'}<br>
-                        <b>Reference:</b> ${client.reference || 'N/A'}<br>
-                        <b>Completion Date:</b> ${client.completionDate ? client.completionDate.substr(0,10) : 'N/A'}<br>
-                    </div>`;
-                    content.innerHTML = html;
-                })
-                .catch(() => {
-                    content.innerHTML = '<div class="error">Failed to load client details.</div>';
-                });
-        }
-        function closeClientDetailsModal() {
-            document.getElementById('clientDetailsModal').style.display = 'none';
-            document.getElementById('clientDetailsModalContent').innerHTML = '';
-        }
-        // Sidebar navigation logic
-        document.getElementById('navHome').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('homeSection');
-        };
-        document.getElementById('navDocuments').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('documentsSection');
-        };
-        document.getElementById('navTasks').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('tasksSection');
-        };
-        document.getElementById('navPayments').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('paymentsSection');
-        };
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.main-content > section').forEach(section => {
-                section.style.display = 'none';
-            });
-            // Show selected section
-            document.getElementById(sectionId).style.display = 'block';
-        }
-        // Restore previous Documents section logic
-        document.getElementById('documentSearch').addEventListener('keyup', function() {
-            const filter = this.value.trim().toLowerCase();
-            const filtered = allDocumentClients.filter(client =>
-                client.name.toLowerCase().includes(filter) ||
-                (client.location && client.location.toLowerCase().includes(filter))
-            );
-            renderDocumentsClientList(filtered);
-        });
-        // ...reuse previous searchClientsForDocuments, loadDocuments, updateDocumentStatus, addCustomDocument, showAddDocumentModal, closeAddDocumentModal, deleteCustomDocument, updateDocumentsProgressBar...
-        document.getElementById('navPayments').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('paymentsSection');
-            loadClientsForPayments();
-        };
-        // Restore previous Payments section logic
-        document.getElementById('paymentSearch').addEventListener('keyup', function() {
-            // Remove any previous search result list
-            const oldList = document.getElementById('paymentsClientSearchResults');
-            if (oldList) oldList.remove();
-
-            const filter = this.value.trim().toLowerCase();
-            const filtered = allPaymentClients.filter(client =>
-                client.name.toLowerCase().includes(filter) ||
-                (client.location && client.location.toLowerCase().includes(filter))
-            );
-            renderPaymentsClientList(filtered);
-        });
-        // ...reuse previous searchClientsForPayments, loadPayments, addPayment, showRecordPaymentModal, closeRecordPaymentModal, recordPayment...
-        // Store all clients for Payments section
-        let allPaymentClients = [];
-        // Load all clients once when showing the payments section
-        function loadClientsForPayments() {
-            const clientsList = document.getElementById('paymentsClientList');
-            clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients', { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    allPaymentClients = data || [];
-                    renderPaymentsClientList(allPaymentClients);
-                })
-                .catch(() => {
-                    clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
-                });
-        }
-        // Render the filtered client list
-        function renderPaymentsClientList(clients) {
-            const clientsList = document.getElementById('paymentsClientList');
-            clientsList.innerHTML = ''; // Clear previous list
-
-            if (!clients || clients.length === 0) {
-                clientsList.innerHTML = '<p style="padding:24px;">No clients found.</p>';
-                return;
-            }
-
-            clients.forEach(client => {
-                const item = document.createElement('div');
-                item.className = 'client-list-item';
-                // Name section
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'client-list-name';
-                nameDiv.textContent = client.name + (client.location ? ' - ' + client.location : '');
-                // Actions section
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'client-list-actions';
-                // Add Payment button (plus icon only)
-                const addPaymentBtn = document.createElement('button');
-                addPaymentBtn.className = 'client-list-action-btn';
-                addPaymentBtn.title = 'Add New Payment';
-                addPaymentBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
-                addPaymentBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    showAddPaymentModal(client._id);
-                };
-                // View Payments button (eye icon only)
-                const viewPaymentsBtn = document.createElement('button');
-                viewPaymentsBtn.className = 'client-list-action-btn';
-                viewPaymentsBtn.title = 'View Payments';
-                viewPaymentsBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                viewPaymentsBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    showPaymentDetailsModal(client);
-                };
-                actionsDiv.appendChild(addPaymentBtn);
-                actionsDiv.appendChild(viewPaymentsBtn);
-                item.appendChild(nameDiv);
-                item.appendChild(actionsDiv);
-                clientsList.appendChild(item);
-            });
-        }
-        // Call this when showing the payments section
-        document.getElementById('navPayments').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('paymentsSection');
-            loadClientsForPayments();
-        };
-        // Filter client list as you type (client-side only)
-        document.getElementById('paymentSearch').addEventListener('keyup', function() {
-            // Remove any previous search result list
-            const oldList = document.getElementById('paymentsClientSearchResults');
-            if (oldList) oldList.remove();
-
-            const filter = this.value.trim().toLowerCase();
-            const filtered = allPaymentClients.filter(client =>
-                client.name.toLowerCase().includes(filter) ||
-                (client.location && client.location.toLowerCase().includes(filter))
-            );
-            renderPaymentsClientList(filtered);
-        });
-        // Show Payment Details Modal
-        function showPaymentDetailsModal(client) {
-            const modal = document.getElementById('paymentDetailsModal');
-            const content = document.getElementById('paymentDetailsModalContent');
-            modal.style.display = 'block';
-            content.innerHTML = '<div class="loading">Loading payments...</div>';
-            // Show client name
-            let html = `<h3>${client.name}</h3>`;
-            // Fetch and show payments
-            fetch(`/api/payments/${client._id}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || data.length === 0) {
-                        html += '<p>No payments found. Add a new payment below.</p>';
-                    } else {
-                        // Calculate summary
-                        let totalDue = 0;
-                        let totalReceived = 0;
-                        data.forEach(payment => {
-                            totalDue += payment.amount;
-                            totalReceived += payment.paidAmount || 0;
-                        });
-                        const pending = Math.max(0, totalDue - totalReceived);
-                        html += `<div style="margin-bottom:15px;"><b>Total Due:</b> ₹${totalDue} &nbsp; <b>Total Received:</b> ₹${totalReceived} &nbsp; <b>Pending:</b> ₹${pending}</div>`;
-                        data.forEach(payment => {
-                            let status = 'Pending';
-                            if ((payment.paidAmount || 0) >= payment.amount) status = 'Received';
-                            else if ((payment.paidAmount || 0) > 0) status = 'Partial';
-                            const remaining = Math.max(0, payment.amount - (payment.paidAmount || 0));
-                            let actionButtons = '';
-                            // Only show delete button if payment is fully received
-                            if ((payment.paidAmount || 0) >= payment.amount) {
-                                actionButtons += `<button class="btn btn-danger" onclick="deletePayment('${payment._id}', '${payment.clientId || currentClientId}')">Delete</button>`;
-                            }
-                            if ((payment.paidAmount || 0) >= payment.amount) {
-                                actionButtons += ` <button class="btn btn-secondary" onclick="editPayment('${payment._id}', '${payment.clientId || currentClientId}')">Edit</button>`;
-                            }
-                            html += `<div class="payment-item" style="margin-bottom:12px;">
-                                <div style="display:flex;justify-content:space-between;align-items:center;">
-                                    <div><b>${payment.description}</b> <span style="color:#4f8cff;">₹${payment.amount}</span></div>
-                                    <div style="font-size:0.95em;">
-                                        <span>Status: <b>${status}</b></span>
-                                        <span style="margin-left:10px;">Received: ₹${payment.paidAmount || 0}</span>
-                                        <span style="margin-left:10px;">Remaining: ₹${remaining}</span>
-                                    </div>
-                                </div>
-                                <div>Date: ${payment.dueDate ? payment.dueDate : 'N/A'}</div>
-                                <div>Transactions: ${payment.transactions && payment.transactions.length > 0 ? payment.transactions.map(t => `<div>₹${t.amount} on ${t.date ? new Date(t.date).toLocaleDateString() : ''} (${t.notes || ''})</div>`).join('') : 'None'}</div>
-                                <button class="btn btn-success record-payment-btn-modal" onclick="showRecordPaymentModal('${payment._id}', ${remaining})" ${status==='Received'?'disabled':''}>Record Payment</button>
-                                <div style="margin-top:10px;">${actionButtons}</div>
-                            </div>`;
-                        });
-                    }
-                    content.innerHTML = html;
-                })
-                .catch(() => {
-                    content.innerHTML = '<div class="error">Failed to load payments.</div>';
-                });
-        }
-        function closePaymentDetailsModal() {
-            document.getElementById('paymentDetailsModal').style.display = 'none';
-            document.getElementById('paymentDetailsModalContent').innerHTML = '';
-        }
-        // Optional: close modal on outside click
-        window.onclick = function(event) {
-            const addDocModal = document.getElementById('addDocumentModal');
-            const recPayModal = document.getElementById('recordPaymentModal');
-            const clientDetailsModal = document.getElementById('clientDetailsModal');
-            const paymentDetailsModal = document.getElementById('paymentDetailsModal');
-            if (event.target === addDocModal) {
-                closeAddDocumentModal();
-            }
-            if (event.target === recPayModal) {
-                closeRecordPaymentModal();
-            }
-            if (event.target === clientDetailsModal) {
-                closeClientDetailsModal();
-            }
-            if (event.target === paymentDetailsModal) {
-                closePaymentDetailsModal();
-            }
-        }
-
-        let allDocumentClients = [];
-
-        // Load all clients when showing the Documents section
-        function loadClientsForDocuments() {
-            const clientsList = document.getElementById('documentsClientList');
-            clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients', { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    allDocumentClients = data || [];
-                    renderDocumentsClientList(allDocumentClients);
-                })
-                .catch(() => {
-                    clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
-                });
-        }
-
-        // Render the filtered client list
-        function renderDocumentsClientList(clients) {
-            const clientsList = document.getElementById('documentsClientList');
-            clientsList.innerHTML = ''; // Clear previous list
-
-            if (!clients || clients.length === 0) {
-                clientsList.innerHTML = '<p style="padding:24px;">No clients found.</p>';
-                return;
-            }
-
-            clients.forEach(client => {
-                const item = document.createElement('div');
-                item.className = 'client-list-item';
-                // Name section
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'client-list-name';
-                nameDiv.textContent = client.name + (client.location ? ' - ' + client.location : '');
-                // Actions section
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'client-list-actions';
-                // View button
-                const viewBtn = document.createElement('button');
-                viewBtn.className = 'client-list-action-btn';
-                viewBtn.title = 'View Documents';
-                viewBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                viewBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    showDocumentsForClient(client);
-                };
-                // Download PDF button
-                const downloadBtn = document.createElement('button');
-                downloadBtn.className = 'client-list-action-btn';
-                downloadBtn.title = 'Download Pending Documents (PDF)';
-                downloadBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38a169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>`;
-                downloadBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    fetch(`/api/export/pending-documents/${client._id}`, {
-                        method: 'GET',
-                        headers: authHeaders()
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Failed to download file');
-                        return response.blob();
-                    })
-                    .then(blob => {
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `pending_documents_${client.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url);
-                    })
-                    .catch(err => {
-                        alert('Failed to download pending documents: ' + err.message);
-                    });
-                };
-                actionsDiv.appendChild(viewBtn);
-                actionsDiv.appendChild(downloadBtn);
-                item.appendChild(nameDiv);
-                item.appendChild(actionsDiv);
-                clientsList.appendChild(item);
-            });
-        }
-
-        // Filter client list as you type (client-side only)
-        document.getElementById('documentSearch').addEventListener('keyup', function() {
-            const filter = this.value.trim().toLowerCase();
-            const filtered = allDocumentClients.filter(client =>
-                client.name.toLowerCase().includes(filter) ||
-                (client.location && client.location.toLowerCase().includes(filter))
-            );
-            renderDocumentsClientList(filtered);
-        });
-
-        // Show documents for selected client
-        function showDocumentsForClient(client) {
-            currentClientId = client._id;
-            // Optionally highlight the selected client
-            document.querySelectorAll('#documentsClientList .client-list-item').forEach(el => el.classList.remove('selected'));
-            // Find the clicked item and add 'selected'
-            const items = document.querySelectorAll('#documentsClientList .client-list-item');
-            items.forEach(item => {
-                if (item.querySelector('.client-list-name').textContent.startsWith(client.name)) {
-                    item.classList.add('selected');
-                }
-            });
-            // Show client info and load documents
-            document.getElementById('documentsClientInfo').style.display = 'block';
-            document.getElementById('documentsClientName').textContent = client.name;
-            loadDocuments(currentClientId);
-        }
-
-        // When Documents tab is clicked, load all clients
-        document.getElementById('navDocuments').onclick = function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            showSection('documentsSection');
-            loadClientsForDocuments();
-            // Optionally hide client info and document table until a client is selected
-            document.getElementById('documentsClientInfo').style.display = 'none';
-            document.getElementById('documentsListContainer').style.display = 'block';
-            document.getElementById('addDocumentSection').style.display = 'block';
-        };
-
-        // Show documents for selected client in modal
-        function showDocumentsForClient(client) {
-            currentClientId = client._id;
-            // Highlight selected client
-            document.querySelectorAll('#documentsClientList .client-list-item').forEach(el => el.classList.remove('selected'));
-            const items = document.querySelectorAll('#documentsClientList .client-list-item');
-            items.forEach(item => {
-                if (item.querySelector('.client-list-name').textContent.startsWith(client.name)) {
-                    item.classList.add('selected');
-                }
-            });
-            // Open modal
-            document.getElementById('documentsModal').style.display = 'block';
-            document.getElementById('documentsModalClientName').textContent = client.name;
-            loadDocumentsModal(currentClientId);
-        }
-        function closeDocumentsModal() {
-            document.getElementById('documentsModal').style.display = 'none';
-            document.getElementById('documentsModalList').innerHTML = '';
-            document.getElementById('addCustomDocumentForm').style.display = 'none';
-            document.getElementById('newCustomDocumentName').value = '';
-        }
-        // Load documents for modal
-        function loadDocumentsModal(clientId) {
-            const loadingDiv = document.getElementById('documentsModalLoading');
-            const errorDiv = document.getElementById('documentsModalError');
-            const successDiv = document.getElementById('documentsModalSuccess');
-            const progressBar = document.getElementById('documentsModalProgress');
-            const progressText = document.getElementById('documentsModalProgressText');
-            const documentsList = document.getElementById('documentsModalList');
-            loadingDiv.style.display = 'block';
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            documentsList.innerHTML = '';
-            fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(clientData => {
-                    if (clientData.error) throw new Error(clientData.error);
-                    document.getElementById('documentsModalClientName').textContent = clientData.name;
-                    return fetch(`/api/documents/${clientId}`, { headers: authHeaders() });
-                })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    loadingDiv.style.display = 'none';
-                    if (data.error) throw new Error(data.error);
-                    // Progress
-                    const documents = Object.entries(data.documents);
-                    const receivedCount = documents.filter(([_, status]) => status === 'received').length;
-                    const progress = Math.round((receivedCount / documents.length) * 100);
-                    progressBar.style.width = `${progress}%`;
-                    progressText.textContent = `${progress}% Complete`;
-                    // Table
-                    documents.sort((a, b) => {
-                        if (a[1] === b[1]) return 0;
-                        if (a[1] === 'not-received') return -1;
-                        return 1;
-                    });
-                    documents.forEach(([docName, status]) => {
-                        let statusCell = '';
-                        let actionCell = '';
-                        let isCustom = data.customDocuments && data.customDocuments.includes(docName);
-                        if (status === 'received') {
-                            statusCell = `<span class='received-badge'>Received</span>`;
-                            actionCell = `<button class='btn btn-danger' onclick="updateDocumentStatusModal('${docName}', 'not-received')">Mark as Not Received</button>`;
-                            if (isCustom) {
-                                actionCell += ` <button class='btn btn-danger' style='margin-left:8px;' onclick="deleteCustomDocumentModal('${docName}')">Delete</button>`;
-                            }
-                        } else {
-                            statusCell = `<span class='status-badge not-received'>Not Received</span>`;
-                            actionCell = `<button class='btn btn-success' onclick="updateDocumentStatusModal('${docName}', 'received')">Mark as Received</button>`;
-                            if (isCustom) {
-                                actionCell += ` <button class='btn btn-danger' style='margin-left:8px;' onclick="deleteCustomDocumentModal('${docName}')">Delete</button>`;
-                            }
-                        }
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td style='padding: 10px;'>${docName}</td>
-                            <td style='text-align:center; padding: 10px;'>${statusCell}</td>
-                            <td style='text-align:center; padding: 10px;'>${actionCell}</td>
-                        `;
-                        documentsList.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    loadingDiv.style.display = 'none';
-                    errorDiv.textContent = error.message || 'Failed to load documents.';
-                    errorDiv.style.display = 'block';
-                });
-        }
-        // Update document status in modal
-        function updateDocumentStatusModal(documentName, status) {
-            const loadingDiv = document.getElementById('documentsModalLoading');
-            const errorDiv = document.getElementById('documentsModalError');
-            const successDiv = document.getElementById('documentsModalSuccess');
-            loadingDiv.style.display = 'block';
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            fetch(`/api/documents/${currentClientId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ documentName, status })
-            })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
-            .then(data => {
-                loadingDiv.style.display = 'none';
-                if (data.error) {
-                    errorDiv.textContent = data.error;
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-                successDiv.textContent = 'Document status updated!';
-                successDiv.style.display = 'block';
-
-                // Update only the affected row
-                const documentsList = document.getElementById('documentsModalList');
-                [...documentsList.children].forEach(row => {
-                    if (row.firstElementChild.textContent === documentName) {
-                        // Update status and action cells
-                        if (status === 'received') {
-                            row.children[1].innerHTML = `<span class="status-badge received">Received</span>`;
-                            row.children[2].innerHTML = `<button class="btn btn-danger" onclick="updateDocumentStatusModal('${documentName}', 'not-received')">Mark as Not Received</button>`;
-                        } else {
-                            row.children[1].innerHTML = `<span class="status-badge not-received">Not Received</span>`;
-                            row.children[2].innerHTML = `<button class="btn btn-success" onclick="updateDocumentStatusModal('${documentName}', 'received')">Mark as Received</button>`;
-                        }
-                    }
-                });
-
-                // Optionally, update the progress bar
-                updateDocumentsModalProgressBar();
-            })
-            .catch(error => {
-                loadingDiv.style.display = 'none';
-                errorDiv.textContent = 'Failed to update document status.';
-                errorDiv.style.display = 'block';
-            });
-        }
-        // Add custom document form logic
-        function showAddCustomDocumentForm() {
-            document.getElementById('addCustomDocumentForm').style.display = 'block';
-            document.getElementById('newCustomDocumentName').focus();
-        }
-        function hideAddCustomDocumentForm() {
-            document.getElementById('addCustomDocumentForm').style.display = 'none';
-            document.getElementById('newCustomDocumentName').value = '';
-        }
-        document.getElementById('addCustomDocumentForm').onsubmit = function(e) {
-            e.preventDefault();
-            const loadingDiv = document.getElementById('documentsModalLoading');
-            const errorDiv = document.getElementById('documentsModalError');
-            const successDiv = document.getElementById('documentsModalSuccess');
-            const newDocumentName = document.getElementById('newCustomDocumentName').value.trim();
-            if (!newDocumentName) {
-                errorDiv.textContent = 'Document name is required.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-            loadingDiv.style.display = 'block';
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            fetch(`/api/documents/${currentClientId}/add`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ documentName: newDocumentName })
-            })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
-            .then(data => {
-                loadingDiv.style.display = 'none';
-                if (data.error) {
-                    errorDiv.textContent = data.error;
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-                successDiv.textContent = 'Custom document added!';
-                successDiv.style.display = 'block';
-                hideAddCustomDocumentForm();
-                loadDocumentsModal(currentClientId);
-            })
-            .catch(error => {
-                loadingDiv.style.display = 'none';
-                errorDiv.textContent = 'Failed to add document.';
-                errorDiv.style.display = 'block';
-            });
-        };
-        // Delete custom document in modalimage.png
-        function deleteCustomDocumentModal(documentName) {
-            if (!confirm('Are you sure you want to delete this custom document?')) return;
-            const loadingDiv = document.getElementById('documentsModalLoading');
-            const errorDiv = document.getElementById('documentsModalError');
-            const successDiv = document.getElementById('documentsModalSuccess');
-            loadingDiv.style.display = 'block';
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            fetch(`/api/documents/${currentClientId}/delete`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ documentName })
-            })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
-            .then(data => {
-                loadingDiv.style.display = 'none';
-                if (data.error) {
-                    errorDiv.textContent = data.error;
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-                successDiv.textContent = 'Custom document deleted!';
-                successDiv.style.display = 'block';
-                loadDocumentsModal(currentClientId);
-            })
-            .catch(error => {
-                loadingDiv.style.display = 'none';
-                errorDiv.textContent = 'Failed to delete document. Please try again.';
-                errorDiv.style.display = 'block';
-            });
-        }
-        // Optional: close modal on outside click
-        window.onclick = function(event) {
-            const addDocModal = document.getElementById('addDocumentModal');
-            const recPayModal = document.getElementById('recordPaymentModal');
-            const clientDetailsModal = document.getElementById('clientDetailsModal');
-            const paymentDetailsModal = document.getElementById('paymentDetailsModal');
-            const documentsModal = document.getElementById('documentsModal');
-            if (event.target === addDocModal) {
-                closeAddDocumentModal();
-            }
-            if (event.target === recPayModal) {
-                closeRecordPaymentModal();
-            }
-            if (event.target === clientDetailsModal) {
-                closeClientDetailsModal();
-            }
-            if (event.target === paymentDetailsModal) {
-                closePaymentDetailsModal();
-            }
-            if (event.target === documentsModal) {
-                closeDocumentsModal();
-            }
-        }
-
-        function updateDocumentsModalProgressBar() {
-            const documentsList = document.getElementById('documentsModalList');
-            const rows = Array.from(documentsList.children);
-            let total = rows.length;
-            let received = 0;
-            rows.forEach(row => {
-                // Check if the status cell contains "Received"
-                if (row.children[1].textContent.trim() === "Received") {
-                    received++;
-                }
-            });
-            const progress = total > 0 ? Math.round((received / total) * 100) : 0;
-            document.getElementById('documentsModalProgress').style.width = `${progress}%`;
-            document.getElementById('documentsModalProgressText').textContent = `${progress}% Complete`;
-        }
-
-        // Add these functions to the <script> section:
-        function deletePayment(paymentId, clientId) {
-            // Only allow delete if payment is fully received
-            fetch(`/api/payments/${paymentId}`, { headers: authHeaders() })
-                .then(response => response.json())
-                .then(payment => {
-                    if ((payment.paidAmount || 0) < payment.amount) {
-                        alert('Cannot delete payment unless it is fully received.');
-                        return;
-                    }
-                    if (!confirm('Are you sure you want to delete this payment?')) return;
-                    fetch(`/api/payments/${paymentId}`, {
-                        method: 'DELETE'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert('Error: ' + data.error);
-                            return;
-                        }
-                        alert('Payment deleted!');
-                        // Refresh the modal
-                        fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                            .then(response => response.json())
-                            .then(client => showPaymentDetailsModal(client));
-                    })
-                    .catch(() => {
-                        alert('Failed to delete payment.');
-                    });
-                });
-        }
-
-        function editPayment(paymentId, clientId) {
-            fetch(`/api/payments/${paymentId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(payment => {
-                    const newAmount = prompt('Edit Amount:', payment.amount);
-                    const newDescription = prompt('Edit Description:', payment.description);
-                    const newDueDate = prompt('Edit Due Date (YYYY-MM-DD):', payment.dueDate || '');
-                    if (newAmount === null || newDescription === null) return;
-                    fetch(`/api/payments/${paymentId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            amount: newAmount,
-                            description: newDescription,
-                            dueDate: newDueDate
-                        })
-                    })
-                    .then(response => {
-                        if (response.status === 401) {
-                            showAuthModal();
-                            throw new Error('Unauthorized');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.error) {
-                            alert('Error: ' + data.error);
-                            return;
-                        }
-                        alert('Payment updated!');
-                        fetch(`/api/clients/${clientId}`, { headers: authHeaders() })
-                            .then(response => {
-                                if (response.status === 401) {
-                                    showAuthModal();
-                                    throw new Error('Unauthorized');
-                                }
-                                return response.json();
-                            })
-                            .then(client => showPaymentDetailsModal(client));
-                    })
-                    .catch(() => {
-                        alert('Failed to update payment.');
-                    });
-                });
-        }
-
-        // After successful authentication (when isAuthenticated() is true), fetch the current user's info from the backend and update the sidebar.
-        if (isAuthenticated()) {
-            fetch('/api/user', { headers: authHeaders() })
-                .then(res => res.json())
-                .then(user => {
-                    if (user && user.name) {
-                        document.getElementById('sidebarUserName').textContent = user.name;
-                    }
-                    if (user && user.email) {
-                        document.getElementById('sidebarUserEmail').textContent = user.email;
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('sidebarUserName').textContent = 'User';
-                    document.getElementById('sidebarUserEmail').textContent = '';
-                });
-        }
-
-        // --- Task Tab Logic ---
-        let allTaskClients = [];
-        let currentTaskClientId = null;
-        // Load all clients for Tasks tab
-        function loadClientsForTasks() {
-            const clientsList = document.getElementById('taskClientList');
-            clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-            fetch('/api/clients', { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    allTaskClients = data || [];
-                    renderTaskClientList(allTaskClients);
-                })
-                .catch(() => {
-                    clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
-                });
-        }
-        // Render client list for Tasks tab
-        function renderTaskClientList(clients) {
-            const clientsList = document.getElementById('taskClientList');
-            clientsList.innerHTML = '';
-            if (!clients || clients.length === 0) {
-                clientsList.innerHTML = '<p style="padding:24px;">No clients found.</p>';
-                return;
-            }
-            clients.forEach(client => {
-                const item = document.createElement('div');
-                item.className = 'client-list-item';
-                // Name section
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'client-list-name';
-                nameDiv.textContent = client.name + (client.location ? ' - ' + client.location : '');
-                // Actions section
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'client-list-actions';
-                // Add Task button (plus icon only)
-                const addTaskBtn = document.createElement('button');
-                addTaskBtn.className = 'client-list-action-btn';
-                addTaskBtn.title = 'Add New Task';
-                addTaskBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
-                addTaskBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    showAddTaskModal(client._id);
-                };
-                // View Tasks button (eye icon only)
-                const viewTasksBtn = document.createElement('button');
-                viewTasksBtn.className = 'client-list-action-btn';
-                viewTasksBtn.title = 'View Assigned Tasks';
-                viewTasksBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
-                viewTasksBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    showTaskDetailsModal(client._id, client.name);
-                };
-                actionsDiv.appendChild(addTaskBtn);
-                actionsDiv.appendChild(viewTasksBtn);
-                item.appendChild(nameDiv);
-                item.appendChild(actionsDiv);
-                clientsList.appendChild(item);
-            });
-        }
-        // Search clients in Tasks tab
-        function searchTaskClients() {
-            const query = document.getElementById('taskClientSearch').value.trim();
-            if (query.length < 2) {
-                renderTaskClientList(allTaskClients);
-                return;
-            }
-            const filtered = allTaskClients.filter(client =>
-                client.name.toLowerCase().includes(query.toLowerCase()) ||
-                (client.location && client.location.toLowerCase().includes(query.toLowerCase()))
-            );
-            renderTaskClientList(filtered);
-        }
-        document.getElementById('taskClientSearch').addEventListener('keyup', searchTaskClients);
-        // Show Add Task Modal
-        function showAddTaskModal(clientId) {
-            currentTaskClientId = clientId;
-            document.getElementById('addTaskModal').style.display = 'block';
-            document.getElementById('addTaskForm').reset();
-        }
-        function closeAddTaskModal() {
-            document.getElementById('addTaskModal').style.display = 'none';
-            document.getElementById('addTaskForm').reset();
-        }
-        // Add Task form submission
-        function addTask(e) {
-            e.preventDefault();
-            const taskData = {
-                clientId: currentTaskClientId,
-                title: document.getElementById('taskTitle').value,
-                service: document.getElementById('taskService').value,
-                allocatedMembers: document.getElementById('taskAllocatedMembers').value,
-                assignedMembers: document.getElementById('taskAssignedMembers').value,
-                priority: document.getElementById('taskPriority').value,
-                dueDate: document.getElementById('taskDueDate').value,
-                team: document.getElementById('taskTeam').value,
-                clientSource: document.getElementById('taskClientSource').value,
-                status: document.getElementById('taskStatus').value,
-                governmentFees: document.getElementById('taskGovFees').value,
-                sroFees: document.getElementById('taskSroFees').value,
-                billAmount: document.getElementById('taskBillAmount').value,
-                gst: document.getElementById('taskGst').value,
-                branch: document.getElementById('taskBranch').value,
-                remark: document.getElementById('taskRemark').value,
-                note: document.getElementById('taskNote').value,
-                description: document.getElementById('taskDescription').value
-            };
-            fetch('/api/tasks', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(taskData)
-            })
-            .then(response => {
-                if (response.status === 401) {
-                    showAuthModal();
-                    throw new Error('Unauthorized');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                    return;
-                }
-                alert('Task added!');
-                closeAddTaskModal();
-            })
-            .catch(() => {
-                alert('Failed to add task.');
-            });
-        }
-        document.getElementById('addTaskForm').onsubmit = addTask;
-        // Show Task Details Modal
-        function showTaskDetailsModal(clientId, clientName) {
-            document.getElementById('taskDetailsModal').style.display = 'block';
-            const content = document.getElementById('taskDetailsModalContent');
-            content.innerHTML = '<div class="loading">Loading tasks...</div>';
-            fetch(`/api/tasks/${clientId}`, { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || data.length === 0) {
-                        content.innerHTML = `<p>No tasks assigned to ${clientName}.</p>`;
-                        return;
-                    }
-                    let html = `<h4>Tasks for ${clientName}</h4>`;
-                    data.forEach(task => {
-                        const isCompleted = task.status === 'Completed';
-                        html += `<div id="task-card-${task._id}" style='background:${isCompleted ? '#c6f6d5' : '#f7fafc'};border:1.5px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:12px;'>
-                            <b>Title:</b> ${task.title || ''}<br>
-                            <b>Description:</b> ${task.description || ''}<br>
-                            <b>Service:</b> ${task.service || ''}<br>
-                            <b>Allocated Members:</b> ${task.allocatedMembers || ''}<br>
-                            <b>Assigned Members:</b> ${task.assignedMembers || ''}<br>
-                            <b>Priority:</b> ${task.priority || ''}<br>
-                            <b>Date:</b> ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}<br>
-                            <b>Team:</b> ${task.team || ''}<br>
-                            <b>Client Source:</b> ${task.clientSource || ''}<br>
-                            <b>Status:</b> <span id="task-status-${task._id}">${task.status || ''}</span><br>
-                            <b>Government Fees:</b> ${task.governmentFees || ''}<br>
-                            <b>SRO Fees:</b> ${task.sroFees || ''}<br>
-                            <b>Bill Amount:</b> ${task.billAmount || ''}<br>
-                            <b>GST:</b> ${task.gst || ''}<br>
-                            <b>Branch:</b> ${task.branch || ''}<br>
-                            <b>Remark:</b> ${task.remark || ''}<br>
-                            <b>Note:</b> ${task.note || ''}<br>
-                            <button class="btn btn-success" style="margin-top:10px;${isCompleted ? 'background:#38a169;' : ''}" onclick="toggleTaskCompleted('${task._id}', '${task.status}', '${clientId}', '${clientName}')">${isCompleted ? 'Completed ✓' : 'Mark as Completed'}</button>
-                            ${isCompleted ? `<button class='btn btn-danger' style='margin-left:10px;margin-top:10px;' onclick="deleteTask('${task._id}', '${clientId}', '${clientName}')">Delete</button>` : ''}
-                        </div>`;
-                    });
-                    content.innerHTML = html;
-                })
-                .catch(() => {
-                    content.innerHTML = '<div class="error">Failed to load tasks.</div>';
-                });
-        }
-
-        function toggleTaskCompleted(taskId, currentStatus, clientId, clientName) {
-            // Toggle between 'Completed' and previous status (default to 'Pending' if not set)
-            const newStatus = currentStatus === 'Completed' ? 'Pending' : 'Completed';
-            fetch(`/api/tasks/${taskId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: newStatus })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                    return;
-                }
-                showTaskDetailsModal(clientId, clientName);
-            })
-            .catch(() => {
-                alert('Failed to update task status.');
-            });
-        }
-
-        function deleteTask(taskId, clientId, clientName) {
-            if (!confirm('Are you sure you want to delete this task?')) return;
-            fetch(`/api/tasks/${taskId}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                    return;
-                }
-                showTaskDetailsModal(clientId, clientName);
-            })
-            .catch(() => {
-                alert('Failed to delete task.');
-            });
-        }
-        function closeTaskDetailsModal() {
-            document.getElementById('taskDetailsModal').style.display = 'none';
-            document.getElementById('taskDetailsModalContent').innerHTML = '';
-        }
-        // When Tasks tab is clicked, load all clients
-        if (document.getElementById('navTasks')) {
-            document.getElementById('navTasks').onclick = function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.sidebar-nav a').forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
-                showSection('tasksSection');
-                loadClientsForTasks();
-            };
-        }
-        // Add a showAddPaymentModal function to open the add payment form for the selected client
-        function showAddPaymentModal(clientId) {
-            currentClientId = clientId;
-            document.getElementById('addPaymentModal').style.display = 'block';
-            // Optionally, scroll to the add payment form
-            document.getElementById('addPaymentSection').scrollIntoView({ behavior: 'smooth' });
-        }
-        function closeAddPaymentModal() {
-            document.getElementById('addPaymentModal').style.display = 'none';
-            document.getElementById('addPaymentFormModal').reset();
-        }
-        // Add Payment form submission for modal
-        if (document.getElementById('addPaymentFormModal')) {
-            document.getElementById('addPaymentFormModal').onsubmit = function(e) {
-                e.preventDefault();
-                const paymentData = {
-                    clientId: currentClientId,
-                    amount: document.getElementById('paymentAmountModal').value,
-                    description: document.getElementById('paymentDescriptionModal').value,
-                    dueDate: document.getElementById('paymentDueDateModal').value
-                };
-                fetch('/api/payments', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(paymentData)
-                })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        alert('Error: ' + data.error);
-                        return;
-                    }
-                    alert('Payment added!');
-                    closeAddPaymentModal();
-                    // loadPayments(currentClientId);
-                })
-                .catch(() => {
-                    alert('Failed to add payment.');
-                });
-            };
-        }
-
-        // After loadClientsHome loads all clients, fetch all payments and update the Home cards
-        function updateHomeTotals() {
-            fetch('/api/payments', { headers: authHeaders() })
-                .then(response => {
-                    if (response.status === 401) {
-                        showAuthModal();
-                        throw new Error('Unauthorized');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || !Array.isArray(data)) return;
-                    let cumulativeTotal = 0;
-                    let totalReceived = 0;
-                    data.forEach(payment => {
-                        cumulativeTotal += payment.amount || 0;
-                        totalReceived += payment.paidAmount || 0;
-                    });
-                    document.getElementById('cumulativeTotal').textContent = '₹' + cumulativeTotal;
-                    document.getElementById('totalOutstanding').textContent = '₹' + Math.max(0, cumulativeTotal - totalReceived);
-                })
-                .catch(() => {
-                    document.getElementById('cumulativeTotal').textContent = '₹0';
-                    document.getElementById('totalOutstanding').textContent = '₹0';
-                });
-        }
-        // Call updateHomeTotals after loading clients in loadClientsHome
-        const origLoadClientsHome = loadClientsHome;
-        loadClientsHome = function() {
-            origLoadClientsHome();
-            updateHomeTotals();
-        };
-
-        // Download Pending Documents PDF (all clients)
-        document.getElementById('downloadPendingDocsBtn').addEventListener('click', function() {
-            fetch('/api/export/pending-documents', {
-                method: 'GET',
-                headers: authHeaders()
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to download file');
-                return response.blob();
-            })
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'pending_documents.pdf';
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(err => {
-                alert('Failed to download pending documents: ' + err.message);
-            });
-        });
-
-        // Hamburger menu logic for mobile sidebar
-        function toggleSidebar() {
-            var sidebar = document.querySelector('.sidebar');
-            if (sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-            } else {
-                sidebar.classList.add('open');
-            }
-        }
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(e) {
-            var sidebar = document.querySelector('.sidebar');
-            var hamburger = document.getElementById('hamburgerMenu');
-            if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
-                    sidebar.classList.remove('open');
-                }
-            }
-        });
-
-        // Helper to get auth headers
-        function authHeaders(extra = {}) {
-          return {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + (localStorage.getItem('jwt') || ''),
-            ...extra
-          };
-        }
-
-        // Patch login and registration logic to store JWT
-        document.getElementById('authForm').onsubmit = function(e) {
-          e.preventDefault();
-          const userId = document.getElementById('authUserId').value.trim();
-          const password = document.getElementById('authPassword').value;
-          const isRegister = document.getElementById('authTitle').textContent === 'Register';
-          fetch(isRegister ? '/api/register' : '/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, password })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.token) {
-              localStorage.setItem('jwt', data.token);
-              location.reload();
-            } else if (data.message && isRegister) {
-              // Registration success, show login
-              showLogin();
-              document.getElementById('authError').textContent = 'Registration successful! Please login.';
-              document.getElementById('authError').style.display = 'block';
-            } else {
-              document.getElementById('authError').textContent = data.error || 'Login/Registration failed';
-              document.getElementById('authError').style.display = 'block';
-            }
-          })
-          .catch(() => {
-            document.getElementById('authError').textContent = 'Login/Registration failed';
-            document.getElementById('authError').style.display = 'block';
-          });
-        };
-
-        // Patch all fetches to use authHeaders for protected endpoints
-        // Example for loadClientsHome:
-        function loadClientsHome() {
-          const clientsList = document.getElementById('clientListHome');
-          clientsList.innerHTML = '<div class="loading">Loading clients...</div>';
-          fetch('/api/clients', { headers: authHeaders() })
-            .then(response => {
-              if (response.status === 401) {
-                showAuthModal();
-                throw new Error('Unauthorized');
-              }
-              return response.json();
-            })
-            .then(data => {
-              clientsList.innerHTML = '';
-              if (!data || data.length === 0) {
-                clientsList.innerHTML = '<p style="padding:24px;">No clients found. Add a new client using the button above.</p>';
-                document.getElementById('totalClients').textContent = '0';
-                return;
-              }
-              document.getElementById('totalClients').textContent = data.length;
-              data.forEach(client => {
-                const item = document.createElement('div');
-                item.className = 'client-list-item';
-                // ... existing code ...
-              });
-            })
-            .catch((err) => {
-              console.error('Error loading clients:', err);
-              clientsList.innerHTML = '<div class="error">Failed to load clients.</div>';
-            });
-        }
-        // ... Repeat for all fetches to /api/clients, /api/payments, /api/documents, /api/tasks, etc. ...
-        // For example:
-        // fetch('/api/payments', { headers: authHeaders() })
-        // fetch(`/api/clients/${id}`, { headers: authHeaders() })
-        // fetch(`/api/documents/${clientId}`, { headers: authHeaders() })
-        // ... existing code ...
-
-        // Helper for authenticated requests
-        async function makeAuthenticatedRequest(url, options = {}) {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = '/login';
-                return;
-            }
-            const defaultOptions = {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                    ...(options.headers || {})
-                }
-            };
-            const response = await fetch(url, { ...defaultOptions, ...options });
-            if (response.status === 401) {
-                localStorage.removeItem('token');
-                window.location.href = '/login';
-                return;
-            }
-            return response;
-        }
-
-        // Helper to sanitize form data for client creation
-        function sanitizeClientFormData(formData) {
-            const integerFields = ['totalUnits', 'bookedUnits', 'officeNumber', 'reference'];
-            const sanitized = {};
-            for (let [key, value] of Object.entries(formData)) {
-                if (value === '' || value === undefined) {
-                    sanitized[key] = null;
-                } else if (integerFields.includes(key)) {
-                    const parsed = parseInt(value);
-                    sanitized[key] = isNaN(parsed) ? null : parsed;
-                } else {
-                    sanitized[key] = value;
-                }
-            }
-            return sanitized;
-        }
-        // Patch client form submit handler
-        const clientForm = document.getElementById('clientForm');
-        if (clientForm) {
-            clientForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = {};
-                new FormData(this).forEach((value, key) => { formData[key] = value; });
-                const data = sanitizeClientFormData(formData);
-                const response = await makeAuthenticatedRequest('/api/clients', {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                });
-                // handle response...
-            });
-        }
-
-        function initializeClientForm() {
-            const clientForm = document.getElementById('clientForm');
-            if (!clientForm) return;
-            clientForm.removeEventListener('submit', handleClientSubmit);
-            clientForm.addEventListener('submit', handleClientSubmit);
-        }
-
-        async function handleClientSubmit(event) {
-            event.preventDefault();
-            try {
-                const formData = new FormData(event.target);
-                const clientData = {};
-                for (let [key, value] of formData.entries()) {
-                    clientData[key] = value.trim() === '' ? null : value.trim();
-                }
-                console.log('Sending client data:', clientData);
-                const response = await fetch('/api/clients', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify(clientData)
-                });
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    const err = await response.json();
-                    console.error('Error response:', err);
-                    throw new Error(err.message || 'Request failed');
-                }
-                const data = await response.json();
-                console.log('Success:', data);
-                alert('Client created successfully!');
-                event.target.reset();
-                if (typeof loadClientsHome === 'function') {
-                    loadClientsHome();
-                }
-            } catch (error) {
-                console.error('Request error:', error);
-                alert(`Error: ${error.message}`);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initializeClientForm);
     </script>
 </body>
 </html>
