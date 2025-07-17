@@ -404,30 +404,61 @@
         }
     });
 
-    // Helper to validate and convert integer fields
-    function validateAndConvertIntegers(data, integerFields) {
-        const validated = { ...data };
-        integerFields.forEach(field => {
-            if (validated[field] === '' || validated[field] === undefined) {
-                validated[field] = null;
-            } else if (typeof validated[field] === 'string' && validated[field] !== '') {
-                const parsed = parseInt(validated[field]);
-                validated[field] = isNaN(parsed) ? null : parsed;
-            }
-        });
-        return validated;
+    // Helper to convert empty strings to null
+    function sanitizeValue(value) {
+        if (value === '' || value === undefined || value === null) {
+            return null;
+        }
+        return value;
     }
 
     // Update /api/clients POST endpoint
     app.post('/api/clients', authMiddleware, async (req, res) => {
         try {
-            const integerFields = ['totalUnits', 'bookedUnits', 'officeNumber', 'reference'];
-            const validatedData = validateAndConvertIntegers(req.body, integerFields);
-            const client = await Client.create(validatedData);
-            res.status(201).json(client);
+            const {
+                office_number,
+                email,
+                ca_name,
+                engineer_name,
+                architect_name,
+                reference,
+                certificate_date,
+                completion_date
+            } = req.body;
+            const clientData = {
+                user_id: req.user.id,
+                office_number: sanitizeValue(office_number),
+                email: sanitizeValue(email),
+                ca_name: sanitizeValue(ca_name),
+                engineer_name: sanitizeValue(engineer_name),
+                architect_name: sanitizeValue(architect_name),
+                reference: sanitizeValue(reference),
+                certificate_date: sanitizeValue(certificate_date),
+                completion_date: sanitizeValue(completion_date)
+            };
+            const client = await Client.create(clientData);
+            res.status(201).json({
+                message: 'Client created successfully',
+                client: client
+            });
         } catch (err) {
             console.error('Client creation error:', err);
-            res.status(500).json({ error: 'Failed to create client', details: err.message });
+            if (err.name === 'SequelizeValidationError') {
+                return res.status(400).json({
+                    error: 'Validation failed',
+                    details: err.errors.map(e => e.message)
+                });
+            }
+            if (err.name === 'SequelizeDatabaseError') {
+                return res.status(400).json({
+                    error: 'Database error',
+                    message: 'Please check your input data format'
+                });
+            }
+            res.status(500).json({
+                error: 'Failed to create client',
+                message: process.env.NODE_ENV === 'development' ? err.message : 'Server error'
+            });
         }
     });
 
