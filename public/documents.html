@@ -4035,6 +4035,38 @@
             }
             return response;
         }
+
+        // Helper to sanitize form data for client creation
+        function sanitizeClientFormData(formData) {
+            const integerFields = ['totalUnits', 'bookedUnits', 'officeNumber', 'reference'];
+            const sanitized = {};
+            for (let [key, value] of Object.entries(formData)) {
+                if (value === '' || value === undefined) {
+                    sanitized[key] = null;
+                } else if (integerFields.includes(key)) {
+                    const parsed = parseInt(value);
+                    sanitized[key] = isNaN(parsed) ? null : parsed;
+                } else {
+                    sanitized[key] = value;
+                }
+            }
+            return sanitized;
+        }
+        // Patch client form submit handler
+        const clientForm = document.getElementById('clientForm');
+        if (clientForm) {
+            clientForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = {};
+                new FormData(this).forEach((value, key) => { formData[key] = value; });
+                const data = sanitizeClientFormData(formData);
+                const response = await makeAuthenticatedRequest('/api/clients', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                // handle response...
+            });
+        }
     </script>
 </body>
 </html>
