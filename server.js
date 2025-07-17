@@ -415,26 +415,32 @@
     // Update /api/clients POST endpoint
     app.post('/api/clients', authMiddleware, async (req, res) => {
         try {
-            const {
-                office_number,
-                email,
-                ca_name,
-                engineer_name,
-                architect_name,
-                reference,
-                certificate_date,
-                completion_date
-            } = req.body;
+            const { type, name, mobile, office_number, email, ca_name, engineer_name, architect_name, reference, certificate_date, completion_date } = req.body;
+            // Validate required fields
+            if (!type || !name || !mobile) {
+                return res.status(400).json({
+                    error: 'Validation failed',
+                    message: 'Type, name, and mobile are required fields',
+                    details: [
+                        !type && { field: 'type', message: 'Type is required' },
+                        !name && { field: 'name', message: 'Name is required' },
+                        !mobile && { field: 'mobile', message: 'Mobile is required' }
+                    ].filter(Boolean)
+                });
+            }
             const clientData = {
                 user_id: req.user.id,
-                office_number: sanitizeValue(office_number),
-                email: sanitizeValue(email),
-                ca_name: sanitizeValue(ca_name),
-                engineer_name: sanitizeValue(engineer_name),
-                architect_name: sanitizeValue(architect_name),
-                reference: sanitizeValue(reference),
-                certificate_date: sanitizeValue(certificate_date),
-                completion_date: sanitizeValue(completion_date)
+                type: type.trim(),
+                name: name.trim(),
+                mobile: mobile.trim(),
+                office_number: office_number?.trim() || null,
+                email: email?.trim() || null,
+                ca_name: ca_name?.trim() || null,
+                engineer_name: engineer_name?.trim() || null,
+                architect_name: architect_name?.trim() || null,
+                reference: reference?.trim() || null,
+                certificate_date: certificate_date || null,
+                completion_date: completion_date || null
             };
             const client = await Client.create(clientData);
             res.status(201).json({
@@ -446,7 +452,11 @@
             if (err.name === 'SequelizeValidationError') {
                 return res.status(400).json({
                     error: 'Validation failed',
-                    details: err.errors.map(e => e.message)
+                    details: err.errors.map(e => ({
+                        field: e.path,
+                        message: e.message,
+                        value: e.value
+                    }))
                 });
             }
             if (err.name === 'SequelizeDatabaseError') {
