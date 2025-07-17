@@ -13,12 +13,13 @@
     const PORT = process.env.PORT || 5000;
 
     // Sequelize connection
-    const sequelize = new Sequelize('postgres://avnadmin:AVNS_yC2OnyXKNhDwBIxX1U7@pg-3d59ce3-vatsalj773-4a87.c.aivencloud.com:11659/defaultdb?sslmode=require', {
+    const sequelize = new Sequelize(process.env.DATABASE_URL, {
       dialect: 'postgres',
+      protocol: 'postgres',
       dialectOptions: {
         ssl: {
           require: true,
-          rejectUnauthorized: false
+          rejectUnauthorized: false // <<-- This is the key for self-signed certs
         }
       }
     });
