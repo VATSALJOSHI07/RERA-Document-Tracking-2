@@ -26,7 +26,8 @@
     "mongoose": "^7.5.0",
     "sequelize": "^6.x.x",
     "pg": "^8.x.x",
-    "pg-hstore": "^2.x.x"
+    "pg-hstore": "^2.x.x",
+    "pdfkit": "^0.x.x"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
