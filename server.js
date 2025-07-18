@@ -57,6 +57,10 @@
         .then(() => console.log('PostgreSQL connected successfully'))
         .catch(err => console.error('PostgreSQL connection error:', err));
 
+    sequelize.sync({ alter: true })
+        .then(() => console.log('Database synchronized'))
+        .catch(err => console.error('Database sync error:', err));
+
     // Schemas
     const User = sequelize.define('User', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -154,27 +158,37 @@
     app.post('/api/register', async (req, res) => {
         try {
             const { userId, password } = req.body;
-            if (!userId || !password) return res.status(400).json({ error: 'User ID and password required' });
-            if (password.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters' });
+            if (!userId || !password) {
+                return res.status(400).json({ error: 'User ID and password required' });
+            }
+            if (password.length < 6) {
+                return res.status(400).json({ error: 'Password must be at least 6 characters' });
+            }
             const existing = await User.findOne({ where: { userId } });
-            if (existing) return res.status(400).json({ error: 'User ID already exists' });
+            if (existing) {
+                return res.status(400).json({ error: 'User ID already exists' });
+            }
             const user = await User.create({ userId, passwordHash: password });
             res.status(201).json({ message: 'User registered successfully' });
         } catch (err) {
+            console.error('Register error:', err);
             res.status(500).json({ error: 'Registration failed', details: err.message });
         }
     });
 
     // Login Endpoint
     app.post('/api/login', async (req, res) => {
-        const { userId, password } = req.body;
-        const user = await User.findOne({ where: { userId } });
-        if (!user) return res.status(400).json({ error: 'Invalid credentials' });
-        // Compare plain text password
-        const valid = user.passwordHash === password;
-        if (!valid) return res.status(400).json({ error: 'Invalid credentials' });
-        const token = jwt.sign({ userId: user.userId, _id: user.id }, JWT_SECRET, { expiresIn: '7d' });
-        res.json({ token });
+        try {
+            const { userId, password } = req.body;
+            const user = await User.findOne({ where: { userId } });
+            if (!user || user.passwordHash !== password) {
+                return res.status(400).json({ error: 'Invalid credentials' });
+            }
+            const token = jwt.sign({ userId: user.userId, id: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+            res.json({ token });
+        } catch (err) {
+            res.status(500).json({ error: 'Login failed' });
+        }
     });
 
     // Default documents list
